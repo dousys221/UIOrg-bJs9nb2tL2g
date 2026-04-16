@@ -42,6 +42,15 @@ export type GameScreen =
   | 'guild'            // 公会主城
   // 充值
   | 'recharge'         // 充值中心
+  // 第10章新增界面
+  | 'hero-list'        // 英雄总览
+  | 'hero-detail'      // 英雄详情
+  | 'recruit-main'     // 抽卡主界面
+  | 'ranking-main'     // 排行榜总入口
+  | 'ranking-detail'   // 单榜详情
+  | 'stage-map'        // 章节地图总览
+  | 'climb-tower'      // 神之塔普通
+  | 'climb-tower-elite' // 魔之塔精英
 
 export interface PlayerInfo {
   id: string

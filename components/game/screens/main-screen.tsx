@@ -24,17 +24,17 @@ const activityItems = [
 
 const quickButtons = [
   { id: 'mission', icon: ListTodo, label: '任务', screen: 'mission' as GameScreen },
-  { id: 'rank', icon: Trophy, label: '排行', screen: 'main' as GameScreen },
+  { id: 'rank', icon: Trophy, label: '排行', screen: 'ranking-main' as GameScreen },
   { id: 'mail', icon: Mail, label: '邮件', screen: 'mail' as GameScreen },
   { id: 'friend', icon: Users, label: '好友', screen: 'social' as GameScreen },
 ]
 
 const featureButtons = [
   { id: 'arena', icon: Trophy, label: '竞技场', screen: 'arena-type' as GameScreen, redDot: true },
-  { id: 'recruit', icon: Sparkles, label: '召唤', screen: 'recruit' as GameScreen, redDot: true },
+  { id: 'recruit', icon: Sparkles, label: '召唤', screen: 'recruit-main' as GameScreen, redDot: true },
   { id: 'guild', icon: Shield, label: '公会', screen: 'guild' as GameScreen, redDot: false },
-  { id: 'operating', icon: Gift, label: '活动', screen: 'operating' as GameScreen, redDot: true },
-  { id: 'recharge', icon: Flame, label: '充值', screen: 'recharge' as GameScreen, redDot: false },
+  { id: 'tower', icon: Flame, label: '爬塔', screen: 'climb-tower' as GameScreen, redDot: true },
+  { id: 'map', icon: Gift, label: '地图', screen: 'stage-map' as GameScreen, redDot: false },
 ]
 
 export function MainScreen({ player, onNavigate, redDots = {} }: MainScreenProps) {
@@ -161,8 +161,8 @@ export function MainScreen({ player, onNavigate, redDots = {} }: MainScreenProps
           />
           <NavButton 
             icon={User} 
-            label="角色" 
-            onClick={() => onNavigate('role-info')} 
+            label="英雄" 
+            onClick={() => onNavigate('hero-list')} 
             redDot={redDots.role}
           />
           <NavButton 

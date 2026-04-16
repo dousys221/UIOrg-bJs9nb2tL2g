@@ -39,6 +39,14 @@ import { ArenaTypeScreen, ArenaMainScreen, ArenaRecordPopup, ArenaResultPopup } 
 import { SingleRecruitPanel, TenRecruitPanel, PublicGetHeroPanel } from '@/components/game/screens/recruit-screen'
 import { OperatingPanel, FirstRechargePanel, OnlineRewardPanel } from '@/components/game/screens/activity-screen'
 import { GuildMainCityScreen, MainRechargeScreen, RoleGetInfoPopup } from '@/components/game/screens/guild-screen'
+// 第10章新增界面
+import { HeroOwnedListScreen } from '@/components/game/screens/hero-owned-list-screen'
+import { HeroDetailScreen } from '@/components/game/screens/hero-detail-screen'
+import { RecruitMainScreen, PoolPreviewPopup, RecruitBoxPopup } from '@/components/game/screens/recruit-main-screen'
+import { RankingMainScreen, RankingSingleListScreen } from '@/components/game/screens/ranking-screen'
+import { StageMapScreen } from '@/components/game/screens/stage-map-screen'
+import { ClimbTowerScreen, ClimbTowerRewardPopup } from '@/components/game/screens/climb-tower-screen'
+import { GameNoticePopup, SimpleNoticePopup } from '@/components/game/screens/game-notice-popup'
 
 import type { GameScreen, PlayerInfo, ServerInfo, BattleResult } from '@/lib/game-types'
 import { mockPlayer, mockServers } from '@/lib/game-store'
@@ -77,6 +85,15 @@ export default function GameApp() {
   const [recruitType, setRecruitType] = useState<'single' | 'ten'>('single')
   const [showGetHero, setShowGetHero] = useState(false)
   const [showRoleGetInfo, setShowRoleGetInfo] = useState(false)
+  
+  // 第10章新增界面状态
+  const [selectedHeroId, setSelectedHeroId] = useState<string>('')
+  const [selectedRankType, setSelectedRankType] = useState<string>('power')
+  const [climbTowerMode, setClimbTowerMode] = useState<'normal' | 'elite'>('normal')
+  const [showPoolPreview, setShowPoolPreview] = useState(false)
+  const [showRecruitBox, setShowRecruitBox] = useState(false)
+  const [showTowerReward, setShowTowerReward] = useState(false)
+  const [showGameNotice, setShowGameNotice] = useState(false)
   
   // 模拟红点状态
   const redDots = {
@@ -719,6 +736,148 @@ export default function GameApp() {
             heroQuality={5}
             onBack={() => setShowRoleGetInfo(false)}
             onGetPath={() => alert('查看获取途径')}
+          />
+        )}
+
+        {/* ========== 第10章新增界面 ========== */}
+        
+        {/* 英雄总览界面 */}
+        {currentScreen === 'hero-list' && player && (
+          <HeroOwnedListScreen
+            player={player}
+            onBack={handleBackToMain}
+            onOpenHeroDetail={(heroId) => {
+              setSelectedHeroId(heroId)
+              setCurrentScreen('hero-detail')
+            }}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {/* 英雄详情界面 */}
+        {currentScreen === 'hero-detail' && player && (
+          <HeroDetailScreen
+            player={player}
+            heroId={selectedHeroId}
+            onBack={() => setCurrentScreen('hero-list')}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {/* 抽卡主界面 */}
+        {currentScreen === 'recruit-main' && player && (
+          <RecruitMainScreen
+            player={player}
+            onBack={handleBackToMain}
+            onSingleRecruit={(poolId) => {
+              setRecruitType('single')
+              setShowRecruitResult(true)
+            }}
+            onTenRecruit={(poolId) => {
+              setRecruitType('ten')
+              setShowRecruitResult(true)
+            }}
+            onOpenPreview={() => setShowPoolPreview(true)}
+            onOpenRecommend={() => alert('推荐阵容')}
+            onOpenRewardBox={() => setShowRecruitBox(true)}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {/* 奖池预览弹窗 */}
+        {showPoolPreview && (
+          <PoolPreviewPopup
+            poolId="premium"
+            onClose={() => setShowPoolPreview(false)}
+          />
+        )}
+
+        {/* 召唤积分宝箱弹窗 */}
+        {showRecruitBox && (
+          <RecruitBoxPopup
+            points={650}
+            maxPoints={1000}
+            onClose={() => setShowRecruitBox(false)}
+            onClaim={() => {
+              setShowRecruitBox(false)
+              alert('领取成功！')
+            }}
+          />
+        )}
+
+        {/* 排行榜总入口 */}
+        {currentScreen === 'ranking-main' && player && (
+          <RankingMainScreen
+            player={player}
+            onBack={handleBackToMain}
+            onOpenRankDetail={(rankId) => {
+              setSelectedRankType(rankId)
+              setCurrentScreen('ranking-detail')
+            }}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {/* 排行榜详情 */}
+        {currentScreen === 'ranking-detail' && player && (
+          <RankingSingleListScreen
+            player={player}
+            rankType={selectedRankType}
+            onBack={() => setCurrentScreen('ranking-main')}
+          />
+        )}
+
+        {/* 章节地图界面 */}
+        {currentScreen === 'stage-map' && player && (
+          <StageMapScreen
+            player={player}
+            onBack={handleBackToMain}
+            onSelectChapter={(chapterId) => {
+              setCurrentScreen('level-main')
+            }}
+            onOpenLevelDetail={(chapterId) => {
+              setCurrentScreen('level-main')
+            }}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {/* 神之塔/魔之塔挑战界面 */}
+        {(currentScreen === 'climb-tower' || currentScreen === 'climb-tower-elite') && player && (
+          <ClimbTowerScreen
+            player={player}
+            mode={currentScreen === 'climb-tower-elite' ? 'elite' : 'normal'}
+            onBack={handleBackToMain}
+            onSwitchMode={() => {
+              setCurrentScreen(currentScreen === 'climb-tower' ? 'climb-tower-elite' : 'climb-tower')
+            }}
+            onOpenReward={() => setShowTowerReward(true)}
+            onOpenRank={() => {
+              setSelectedRankType('tower')
+              setCurrentScreen('ranking-detail')
+            }}
+            onOpenShop={() => setCurrentScreen('shop')}
+            onChallenge={(floor) => {
+              setCurrentScreen('battle')
+            }}
+            onNavigate={handleNavigate}
+          />
+        )}
+
+        {/* 爬塔奖励弹窗 */}
+        {showTowerReward && (
+          <ClimbTowerRewardPopup
+            onClose={() => setShowTowerReward(false)}
+            onClaim={(rewardId) => {
+              alert(`领取奖励 ${rewardId}`)
+            }}
+          />
+        )}
+
+        {/* 游戏公告弹窗 */}
+        {showGameNotice && (
+          <GameNoticePopup
+            onClose={() => setShowGameNotice(false)}
           />
         )}
       </div>
