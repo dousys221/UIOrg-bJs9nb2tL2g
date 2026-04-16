@@ -1,0 +1,288 @@
+'use client'
+
+import { useState } from 'react'
+import { TopBar, ResourceBar, TabBar, ItemFrame, GameButton, ProgressBar, RedDot } from '../ui-components'
+import { 
+  User, Sword, Shield, Zap, Heart, Star, ChevronRight,
+  Cpu, Flag, CircuitBoard, ArrowUp
+} from 'lucide-react'
+import type { PlayerInfo, SkillData, GameScreen } from '@/lib/game-types'
+
+interface RoleInfoScreenProps {
+  player: PlayerInfo
+  onBack: () => void
+  onNavigate: (screen: GameScreen) => void
+}
+
+const mainTabs = [
+  { id: 'culture', label: '养成' },
+  { id: 'equip', label: '装备' },
+  { id: 'info', label: '属性' },
+]
+
+const sideTabs = [
+  { id: 'ability', label: '能力', icon: Zap, redDot: true },
+  { id: 'chip', label: '芯片', icon: Cpu, redDot: false },
+  { id: 'flag', label: '旗帜', icon: Flag, redDot: true },
+]
+
+const mockSkills: SkillData[] = [
+  { id: '1', name: '能量冲击', type: 'active', level: 5, maxLevel: 10, cd: 8, description: '对单体目标造成150%攻击力的伤害', icon: 'skill1' },
+  { id: '2', name: '护盾强化', type: 'passive', level: 3, maxLevel: 10, description: '永久提升15%防御力', icon: 'skill2' },
+  { id: '3', name: '终极爆发', type: 'active', level: 1, maxLevel: 5, cd: 15, description: '对所有敌人造成200%攻击力的范围伤害', icon: 'skill3' },
+]
+
+const attributes = [
+  { label: '生命值', value: 125680, icon: Heart, color: 'text-destructive' },
+  { label: '攻击力', value: 8560, icon: Sword, color: 'text-gold-primary' },
+  { label: '防御力', value: 4280, icon: Shield, color: 'text-blue-tech' },
+  { label: '暴击率', value: '25.5%', icon: Zap, color: 'text-gold-secondary' },
+]
+
+export function RoleInfoScreen({ player, onBack, onNavigate }: RoleInfoScreenProps) {
+  const [activeMainTab, setActiveMainTab] = useState('culture')
+  const [activeSideTab, setActiveSideTab] = useState('ability')
+  const [selectedSkill, setSelectedSkill] = useState<SkillData | null>(null)
+  
+  return (
+    <div className="relative w-full h-full flex flex-col bg-gradient-to-b from-card to-background overflow-hidden">
+      {/* 顶部导航 */}
+      <TopBar 
+        title="角色" 
+        onBack={onBack}
+        rightContent={
+          <ResourceBar
+            gold={player.gold}
+            diamond={player.diamond}
+            stamina={player.stamina}
+            maxStamina={player.maxStamina}
+          />
+        }
+      />
+      
+      {/* 角色信息概览 */}
+      <div className="px-4 pb-4">
+        <div className="flex items-center gap-4 p-4 bg-card/80 rounded-xl border border-border backdrop-blur-sm">
+          <div className="relative">
+            <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-gold-secondary to-gold-primary flex items-center justify-center">
+              <User className="w-10 h-10 text-primary-foreground" />
+            </div>
+            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-blue-tech rounded text-[10px] font-bold text-white">
+              Lv.{player.level}
+            </span>
+          </div>
+          <div className="flex-1">
+            <h2 className="text-lg font-bold">{player.name}</h2>
+            <div className="flex items-center gap-2 mt-1">
+              <Sword className="w-4 h-4 text-gold-primary" />
+              <span className="text-gold-light font-bold">{player.power.toLocaleString()}</span>
+            </div>
+            <div className="mt-2">
+              <ProgressBar value={65} max={100} color="blue" />
+              <p className="text-[10px] text-muted-foreground mt-1">经验 65/100</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* 主Tab */}
+      <div className="px-4 pb-3">
+        <TabBar tabs={mainTabs} activeTab={activeMainTab} onChange={setActiveMainTab} />
+      </div>
+      
+      {/* 内容区 */}
+      <div className="flex-1 flex overflow-hidden">
+        {activeMainTab === 'culture' && (
+          <>
+            {/* 左侧子页签 */}
+            <div className="w-20 py-2 pl-2 space-y-2">
+              {sideTabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveSideTab(tab.id)}
+                  className={`relative w-full flex flex-col items-center gap-1 py-3 rounded-l-xl transition-all ${
+                    activeSideTab === tab.id 
+                      ? 'bg-card border-l-2 border-gold-primary' 
+                      : 'bg-muted/30 hover:bg-muted/50'
+                  }`}
+                >
+                  <tab.icon className={`w-5 h-5 ${activeSideTab === tab.id ? 'text-gold-primary' : 'text-muted-foreground'}`} />
+                  <span className={`text-[10px] ${activeSideTab === tab.id ? 'text-foreground' : 'text-muted-foreground'}`}>
+                    {tab.label}
+                  </span>
+                  {tab.redDot && <RedDot className="absolute top-1 right-1" />}
+                </button>
+              ))}
+            </div>
+            
+            {/* 右侧内容 */}
+            <div className="flex-1 p-4 overflow-y-auto">
+              {activeSideTab === 'ability' && (
+                <div className="space-y-4">
+                  <h3 className="text-sm font-medium text-muted-foreground">技能列表</h3>
+                  <div className="space-y-3">
+                    {mockSkills.map((skill) => (
+                      <button
+                        key={skill.id}
+                        onClick={() => setSelectedSkill(skill)}
+                        className="w-full flex items-center gap-3 p-3 bg-card/80 rounded-xl border border-border hover:border-gold-primary/50 transition-colors"
+                      >
+                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                          skill.type === 'active' ? 'bg-blue-tech/20' : 'bg-gold-primary/20'
+                        }`}>
+                          <Zap className={`w-6 h-6 ${skill.type === 'active' ? 'text-blue-tech' : 'text-gold-primary'}`} />
+                        </div>
+                        <div className="flex-1 text-left">
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium">{skill.name}</span>
+                            <span className="text-xs text-muted-foreground">Lv.{skill.level}</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground line-clamp-1">{skill.description}</p>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                      </button>
+                    ))}
+                  </div>
+                  
+                  {/* 升级按钮 */}
+                  <GameButton variant="primary" className="w-full">
+                    <div className="flex items-center gap-2">
+                      <ArrowUp className="w-4 h-4" />
+                      <span>升级技能</span>
+                    </div>
+                  </GameButton>
+                </div>
+              )}
+              
+              {activeSideTab === 'chip' && (
+                <div className="space-y-4">
+                  <h3 className="text-sm font-medium text-muted-foreground">芯片插槽</h3>
+                  <div className="grid grid-cols-3 gap-3">
+                    {[1, 2, 3, 4, 5, 6].map((slot) => (
+                      <ItemFrame key={slot} quality={slot <= 3 ? 4 : 1} locked={slot > 3}>
+                        <CircuitBoard className="w-6 h-6 text-foreground/50" />
+                      </ItemFrame>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {activeSideTab === 'flag' && (
+                <div className="space-y-4">
+                  <h3 className="text-sm font-medium text-muted-foreground">旗帜系统</h3>
+                  <div className="p-6 bg-card/50 rounded-xl border border-border text-center">
+                    <Flag className="w-12 h-12 mx-auto text-muted-foreground/50" />
+                    <p className="mt-3 text-sm text-muted-foreground">等级达到60级解锁</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+        
+        {activeMainTab === 'equip' && (
+          <div className="flex-1 p-4">
+            <div className="grid grid-cols-3 gap-3">
+              {['武器', '护甲', '头盔', '护腿', '靴子', '饰品'].map((slot, i) => (
+                <div key={slot} className="flex flex-col items-center gap-2">
+                  <ItemFrame quality={i < 3 ? 5 : 4}>
+                    <Shield className="w-6 h-6 text-foreground/50" />
+                  </ItemFrame>
+                  <span className="text-xs text-muted-foreground">{slot}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {activeMainTab === 'info' && (
+          <div className="flex-1 p-4 space-y-3">
+            {attributes.map((attr) => (
+              <div key={attr.label} className="flex items-center justify-between p-3 bg-card/80 rounded-xl border border-border">
+                <div className="flex items-center gap-3">
+                  <attr.icon className={`w-5 h-5 ${attr.color}`} />
+                  <span className="text-sm">{attr.label}</span>
+                </div>
+                <span className="font-bold text-gold-light">{typeof attr.value === 'number' ? attr.value.toLocaleString() : attr.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      
+      {/* 技能详情弹窗 */}
+      {selectedSkill && (
+        <SkillInfoPopup skill={selectedSkill} onClose={() => setSelectedSkill(null)} />
+      )}
+    </div>
+  )
+}
+
+interface SkillInfoPopupProps {
+  skill: SkillData
+  onClose: () => void
+}
+
+function SkillInfoPopup({ skill, onClose }: SkillInfoPopupProps) {
+  return (
+    <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60" onClick={onClose}>
+      <div 
+        className="w-[85%] max-w-sm bg-card rounded-xl border border-border overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* 技能头部 */}
+        <div className="p-4 bg-gradient-to-b from-muted/50 to-transparent">
+          <div className="flex items-start gap-4">
+            <div className={`w-16 h-16 rounded-xl flex items-center justify-center ${
+              skill.type === 'active' ? 'bg-blue-tech/20' : 'bg-gold-primary/20'
+            }`}>
+              <Zap className={`w-8 h-8 ${skill.type === 'active' ? 'text-blue-tech' : 'text-gold-primary'}`} />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold">{skill.name}</h3>
+              <div className="flex items-center gap-2 mt-1">
+                <span className={`px-2 py-0.5 rounded text-xs ${
+                  skill.type === 'active' ? 'bg-blue-tech/20 text-blue-tech' : 'bg-gold-primary/20 text-gold-primary'
+                }`}>
+                  {skill.type === 'active' ? '主动' : '被动'}
+                </span>
+                <span className="text-sm text-muted-foreground">Lv.{skill.level}/{skill.maxLevel}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* 技能描述 */}
+        <div className="px-4 py-3 border-t border-border">
+          <p className="text-sm text-foreground leading-relaxed">
+            {skill.description}
+          </p>
+        </div>
+        
+        {/* CD显示 */}
+        {skill.type === 'active' && skill.cd && (
+          <div className="px-4 py-3 border-t border-border flex items-center justify-between">
+            <span className="text-sm text-muted-foreground">冷却时间</span>
+            <span className="font-bold text-blue-tech">{skill.cd}秒</span>
+          </div>
+        )}
+        
+        {/* 升级条件 */}
+        {skill.level < skill.maxLevel && (
+          <div className="px-4 py-3 border-t border-border">
+            <p className="text-xs text-muted-foreground">
+              升级条件: 角色等级 {skill.level * 10 + 10}
+            </p>
+          </div>
+        )}
+        
+        {/* 关闭按钮 */}
+        <div className="p-4 border-t border-border">
+          <GameButton variant="secondary" className="w-full" onClick={onClose}>
+            关闭
+          </GameButton>
+        </div>
+      </div>
+    </div>
+  )
+}
