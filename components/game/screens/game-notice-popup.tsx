@@ -126,20 +126,20 @@ export function GameNoticePopup({ onClose }: GameNoticePopupProps) {
       onClick={onClose}
     >
       <div 
-        className="w-[95%] max-w-lg h-[85%] bg-card rounded-xl border border-border overflow-hidden flex flex-col"
+        className="w-[90%] max-w-[340px] h-[80%] bg-card rounded-lg border border-border overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 标题栏 */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-gradient-to-b from-muted/30 to-transparent">
-          <div className="flex items-center gap-2">
-            <Bell className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-bold">游戏公告</h2>
+        <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-gradient-to-b from-muted/30 to-transparent">
+          <div className="flex items-center gap-1.5">
+            <Bell className="w-4 h-4 text-primary" />
+            <h2 className="text-sm font-bold">游戏公告</h2>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-muted/50 flex items-center justify-center hover:bg-muted transition-colors"
+            className="w-6 h-6 rounded-full bg-muted/50 flex items-center justify-center hover:bg-muted transition-colors"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3 h-3" />
           </button>
         </div>
 
@@ -157,19 +157,26 @@ export function GameNoticePopup({ onClose }: GameNoticePopupProps) {
               <TabBar tabs={noticeTabs} activeTab={activeTab} onChange={setActiveTab} />
             </div>
 
+{/* 公告列表 */}
+          <>
+            {/* 标签筛选 */}
+            <div className="px-2.5 py-1.5 border-b border-border">
+              <TabBar tabs={noticeTabs} activeTab={activeTab} onChange={setActiveTab} />
+            </div>
+
             {/* 公告列表 */}
             <div className="flex-1 overflow-y-auto">
               {isLoading ? (
                 <div className="flex items-center justify-center h-full">
-                  <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                  <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
               ) : filteredNotices.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
-                  <Bell className="w-12 h-12 mb-3 opacity-30" />
-                  <p>暂无公告</p>
+                  <Bell className="w-8 h-8 mb-2 opacity-30" />
+                  <p className="text-xs">暂无公告</p>
                 </div>
               ) : (
-                <div className="p-4 space-y-3">
+                <div className="p-2.5 space-y-2">
                   {filteredNotices.map((notice) => (
                     <NoticeListItem
                       key={notice.id}
@@ -182,6 +189,9 @@ export function GameNoticePopup({ onClose }: GameNoticePopupProps) {
                   ))}
                 </div>
               )}
+            </div>
+          </>
+        )}
             </div>
           </>
         )}
@@ -210,7 +220,7 @@ function NoticeListItem({
     <button
       onClick={onClick}
       className={cn(
-        'w-full flex items-start gap-3 p-4 rounded-xl border transition-all text-left',
+        'w-full flex items-start gap-2 p-2.5 rounded-lg border transition-all text-left',
         notice.isImportant 
           ? 'bg-destructive/5 border-destructive/30 hover:border-destructive/50' 
           : 'bg-card/80 border-border hover:border-primary/30'
@@ -223,26 +233,26 @@ function NoticeListItem({
 
       {/* 内容 */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
-          <span className={cn('px-2 py-0.5 rounded text-[10px] font-bold', getTypeColor(notice.type))}>
+        <div className="flex items-center gap-1 mb-0.5 flex-wrap">
+          <span className={cn('px-1 py-0 rounded text-[8px] font-bold', getTypeColor(notice.type))}>
             {getTypeLabel(notice.type)}
           </span>
           {notice.isNew && (
-            <span className="px-1.5 py-0.5 bg-destructive/20 text-destructive text-[10px] rounded">NEW</span>
+            <span className="px-1 py-0 bg-destructive/20 text-destructive text-[8px] rounded">NEW</span>
           )}
           {notice.isImportant && (
-            <span className="px-1.5 py-0.5 bg-gold-primary/20 text-gold-primary text-[10px] rounded">重要</span>
+            <span className="px-1 py-0 bg-gold-primary/20 text-gold-primary text-[8px] rounded">重要</span>
           )}
         </div>
-        <h3 className="font-medium truncate">{notice.title}</h3>
-        <div className="flex items-center gap-1 mt-1 text-xs text-muted-foreground">
-          <Clock className="w-3 h-3" />
+        <h3 className="text-[11px] font-medium truncate">{notice.title}</h3>
+        <div className="flex items-center gap-0.5 text-[9px] text-muted-foreground">
+          <Clock className="w-2.5 h-2.5" />
           <span>{notice.time}</span>
         </div>
       </div>
 
       {/* 箭头 */}
-      <ChevronRight className="w-5 h-5 text-muted-foreground shrink-0" />
+      <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />
     </button>
   )
 }
@@ -260,37 +270,37 @@ function NoticeDetail({ notice, onBack }: NoticeDetailProps) {
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* 返回按钮 */}
-      <div className="px-4 py-2 border-b border-border">
+      <div className="px-2.5 py-1.5 border-b border-border">
         <button
           onClick={onBack}
-          className="flex items-center gap-1 text-sm text-primary hover:underline"
+          className="flex items-center gap-0.5 text-[10px] text-primary hover:underline"
         >
-          <ChevronRight className="w-4 h-4 rotate-180" />
+          <ChevronRight className="w-3 h-3 rotate-180" />
           返回列表
         </button>
       </div>
 
       {/* 公告内容 */}
-      <div className="flex-1 overflow-y-auto p-4">
+      <div className="flex-1 overflow-y-auto p-2.5">
         {/* 标题 */}
-        <div className="mb-4">
-          <h2 className="text-xl font-bold mb-2">{notice.title}</h2>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Clock className="w-4 h-4" />
+        <div className="mb-2">
+          <h2 className="text-sm font-bold mb-1">{notice.title}</h2>
+          <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+            <Clock className="w-3 h-3" />
             <span>{notice.time}</span>
           </div>
         </div>
 
         {/* 正文 */}
         <div className="prose prose-sm prose-invert max-w-none">
-          <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-foreground bg-transparent p-0 m-0">
+          <pre className="whitespace-pre-wrap font-sans text-[10px] leading-relaxed text-foreground bg-transparent p-0 m-0">
             {formattedContent}
           </pre>
         </div>
       </div>
 
       {/* 底部按钮 */}
-      <div className="p-4 border-t border-border">
+      <div className="p-2.5 border-t border-border">
         <GameButton variant="secondary" className="w-full" onClick={onBack}>
           关闭
         </GameButton>
@@ -314,32 +324,32 @@ export function SimpleNoticePopup({ content, onClose }: SimpleNoticePopupProps) 
       onClick={onClose}
     >
       <div 
-        className="w-[85%] max-w-md max-h-[70%] bg-card rounded-xl border border-border overflow-hidden flex flex-col"
+        className="w-[85%] max-w-[300px] max-h-[65%] bg-card rounded-lg border border-border overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 标题 */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-          <div className="flex items-center gap-2">
-            <Bell className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-bold">游戏公告</h2>
+        <div className="flex items-center justify-between px-3 py-2 border-b border-border">
+          <div className="flex items-center gap-1.5">
+            <Bell className="w-4 h-4 text-primary" />
+            <h2 className="text-sm font-bold">游戏公告</h2>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-muted/50 flex items-center justify-center hover:bg-muted transition-colors"
+            className="w-6 h-6 rounded-full bg-muted/50 flex items-center justify-center hover:bg-muted transition-colors"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3 h-3" />
           </button>
         </div>
 
         {/* 内容 */}
-        <div className="flex-1 overflow-y-auto p-4">
-          <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-foreground">
+        <div className="flex-1 overflow-y-auto p-2.5">
+          <pre className="whitespace-pre-wrap font-sans text-[10px] leading-relaxed text-foreground">
             {formattedContent}
           </pre>
         </div>
 
         {/* 按钮 */}
-        <div className="p-4 border-t border-border">
+        <div className="p-2.5 border-t border-border">
           <GameButton variant="primary" className="w-full" onClick={onClose}>
             我知道了
           </GameButton>

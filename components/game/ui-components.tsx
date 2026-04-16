@@ -33,9 +33,9 @@ export function GameButton({
   }
   
   const sizes = {
-    sm: 'px-3 py-1.5 text-xs rounded-md',
-    md: 'px-5 py-2.5 text-sm rounded-lg',
-    lg: 'px-8 py-4 text-base rounded-xl'
+    sm: 'px-2 py-1 text-[10px] rounded-md',
+    md: 'px-3 py-1.5 text-xs rounded-lg',
+    lg: 'px-4 py-2 text-sm rounded-xl'
   }
   
   return (
@@ -81,40 +81,40 @@ export function ResourceBar({ gold = 0, diamond = 0, stamina = 0, maxStamina = 1
   }
   
   return (
-    <div className={cn('flex items-center gap-3', className)}>
+    <div className={cn('flex items-center gap-1.5', className)}>
       {showBack && onBack && (
         <button
           onClick={onBack}
           className={cn(
-            'flex items-center justify-center w-12 h-12 rounded-lg bg-card/80 border border-border backdrop-blur-sm',
+            'flex items-center justify-center w-8 h-8 rounded-md bg-card/80 border border-border backdrop-blur-sm',
             'transition-all duration-200 hover:bg-card active:scale-95 shrink-0'
           )}
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-4 h-4" />
         </button>
       )}
       <button 
         onClick={() => onResourceClick?.('gold')}
-        className="flex items-center gap-1.5 px-3 py-1.5 bg-card/80 rounded-full border border-border backdrop-blur-sm"
+        className="flex items-center gap-1 px-2 py-1 bg-card/80 rounded-full border border-border backdrop-blur-sm"
       >
-        <Coins className="w-4 h-4 text-gold-primary" />
-        <span className="text-sm font-medium text-gold-light">{formatNumber(gold)}</span>
+        <Coins className="w-3 h-3 text-gold-primary" />
+        <span className="text-[10px] font-medium text-gold-light">{formatNumber(gold)}</span>
       </button>
       
       <button 
         onClick={() => onResourceClick?.('diamond')}
-        className="flex items-center gap-1.5 px-3 py-1.5 bg-card/80 rounded-full border border-border backdrop-blur-sm"
+        className="flex items-center gap-1 px-2 py-1 bg-card/80 rounded-full border border-border backdrop-blur-sm"
       >
-        <Diamond className="w-4 h-4 text-blue-glow" />
-        <span className="text-sm font-medium text-foreground">{formatNumber(diamond)}</span>
+        <Diamond className="w-3 h-3 text-blue-glow" />
+        <span className="text-[10px] font-medium text-foreground">{formatNumber(diamond)}</span>
       </button>
       
       <button 
         onClick={() => onResourceClick?.('stamina')}
-        className="flex items-center gap-1.5 px-3 py-1.5 bg-card/80 rounded-full border border-border backdrop-blur-sm"
+        className="flex items-center gap-1 px-2 py-1 bg-card/80 rounded-full border border-border backdrop-blur-sm"
       >
-        <Zap className="w-4 h-4 text-success" />
-        <span className="text-sm font-medium">
+        <Zap className="w-3 h-3 text-success" />
+        <span className="text-[10px] font-medium">
           <span className="text-success">{stamina}</span>
           <span className="text-muted-foreground">/{maxStamina}</span>
         </span>
@@ -134,12 +134,12 @@ export function BackButton({ onClick, className }: BackButtonProps) {
     <button
       onClick={onClick}
       className={cn(
-        'flex items-center justify-center w-12 h-12 rounded-lg bg-card/80 border border-border backdrop-blur-sm',
+        'flex items-center justify-center w-8 h-8 rounded-md bg-card/80 border border-border backdrop-blur-sm',
         'transition-all duration-200 hover:bg-card active:scale-95',
         className
       )}
     >
-      <ChevronLeft className="w-6 h-6" />
+      <ChevronLeft className="w-4 h-4" />
     </button>
   )
 }
@@ -156,7 +156,7 @@ export function RedDot({ show = true, count, className }: RedDotProps) {
   
   return (
     <div className={cn(
-      'absolute -top-1 -right-1 flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full bg-destructive text-[10px] font-bold text-white',
+      'absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[12px] h-[12px] px-0.5 rounded-full bg-destructive text-[8px] font-bold text-white',
       className
     )}>
       {count && count > 0 ? (count > 99 ? '99+' : count) : ''}
@@ -253,25 +253,25 @@ export function ItemFrame({ quality, children, className, onClick, selected, loc
     <button
       onClick={onClick}
       className={cn(
-        'relative w-[68px] h-[68px] rounded-lg overflow-hidden',
-        'bg-gradient-to-br p-[2px]',
+        'relative w-12 h-12 rounded-md overflow-hidden',
+        'bg-gradient-to-br p-[1px]',
         qualityColors[quality],
-        selected && 'ring-2 ring-gold-primary ring-offset-2 ring-offset-background',
+        selected && 'ring-1 ring-gold-primary ring-offset-1 ring-offset-background',
         locked && 'opacity-50 grayscale',
         className
       )}
     >
-      <div className="w-full h-full bg-card rounded-md flex items-center justify-center">
+      <div className="w-full h-full bg-card rounded-[5px] flex items-center justify-center">
         {children}
       </div>
       {count !== undefined && count > 1 && (
-        <span className="absolute bottom-0 right-1 text-xs font-bold text-foreground drop-shadow-lg">
+        <span className="absolute bottom-0 right-0.5 text-[9px] font-bold text-foreground drop-shadow-lg">
           {count}
         </span>
       )}
       {locked && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/60">
-          <Lock className="w-4 h-4" />
+          <Lock className="w-3 h-3" />
         </div>
       )}
     </button>
@@ -294,13 +294,13 @@ interface TabBarProps {
 
 export function TabBar({ tabs, activeTab, onChange, className }: TabBarProps) {
   return (
-    <div className={cn('flex items-center gap-1 p-1 bg-card rounded-lg border border-border', className)}>
+    <div className={cn('flex items-center gap-0.5 p-0.5 bg-card rounded-md border border-border', className)}>
       {tabs.map((tab) => (
         <button
           key={tab.id}
           onClick={() => onChange(tab.id)}
           className={cn(
-            'relative flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all duration-200',
+            'relative flex-1 px-2 py-1 text-[10px] font-medium rounded transition-all duration-200',
             activeTab === tab.id
               ? 'bg-gradient-to-b from-gold-secondary to-gold-primary text-primary-foreground'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -324,10 +324,10 @@ interface TopBarProps {
 
 export function TopBar({ title, onBack, rightContent, className }: TopBarProps) {
   return (
-    <div className={cn('flex items-center justify-between px-4 py-3', className)}>
-      <div className="flex items-center gap-3">
+    <div className={cn('flex items-center justify-between px-3 py-2', className)}>
+      <div className="flex items-center gap-2">
         {onBack && <BackButton onClick={onBack} />}
-        {title && <h1 className="text-xl font-bold">{title}</h1>}
+        {title && <h1 className="text-sm font-bold">{title}</h1>}
       </div>
       {rightContent}
     </div>
@@ -397,9 +397,9 @@ export function HexButton({
   }
   
   const sizes = {
-    sm: 'px-4 py-2 text-xs',
-    md: 'px-6 py-3 text-sm',
-    lg: 'px-8 py-4 text-base'
+    sm: 'px-2 py-1 text-[10px]',
+    md: 'px-3 py-1.5 text-xs',
+    lg: 'px-4 py-2 text-sm'
   }
   
   return (
@@ -440,10 +440,10 @@ export function GlowCard({ children, className, glowColor = 'gold', onClick }: G
     <div
       onClick={onClick}
       className={cn(
-        'relative bg-card rounded-xl border p-4 transition-all duration-300',
-        'shadow-lg backdrop-blur-sm',
+        'relative bg-card rounded-lg border p-2.5 transition-all duration-300',
+        'shadow-md backdrop-blur-sm',
         glowColors[glowColor],
-        onClick && 'cursor-pointer hover:scale-[1.02]',
+        onClick && 'cursor-pointer hover:scale-[1.01]',
         className
       )}
     >

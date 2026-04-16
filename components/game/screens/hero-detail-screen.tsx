@@ -198,13 +198,13 @@ export function HeroDetailScreen({
   return (
     <div className="relative w-full h-full flex flex-col bg-gradient-to-b from-card to-background overflow-hidden">
       {/* 顶部导航 */}
-      <div className="relative z-10 px-4 pt-4 pb-2">
-        <div className="flex items-center justify-between">
+      <div className="relative z-10 px-2.5 pt-2 pb-1">
+        <div className="flex items-center justify-between gap-2">
           <button
             onClick={onBack}
-            className="flex items-center justify-center w-12 h-12 rounded-lg bg-card/80 border border-border backdrop-blur-sm transition-all duration-200 hover:bg-card active:scale-95"
+            className="flex items-center justify-center w-8 h-8 rounded-md bg-card/80 border border-border backdrop-blur-sm transition-all duration-200 hover:bg-card active:scale-95"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
           
           <ResourceBar
@@ -217,37 +217,37 @@ export function HeroDetailScreen({
       </div>
 
       {/* 英雄概览 */}
-      <div className="px-4 py-2">
-        <div className="flex items-center gap-4 p-4 bg-card/80 rounded-xl border border-border backdrop-blur-sm">
+      <div className="px-2.5 py-1">
+        <div className="flex items-center gap-2.5 p-2 bg-card/80 rounded-lg border border-border backdrop-blur-sm">
           {/* 英雄头像 */}
           <div className="relative">
             <div className={cn(
-              'w-20 h-20 rounded-xl flex items-center justify-center',
+              'w-14 h-14 rounded-lg flex items-center justify-center',
               'bg-gradient-to-br from-gold-secondary to-gold-primary'
             )}>
-              <span className="text-4xl">🔥</span>
+              <span className="text-2xl">🔥</span>
             </div>
-            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-blue-tech rounded text-[10px] font-bold text-white">
+            <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 px-1.5 py-0 bg-blue-tech rounded text-[8px] font-bold text-white">
               Lv.{hero.level}
             </span>
           </div>
           
           {/* 英雄信息 */}
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <h2 className="text-lg font-bold">{hero.name}</h2>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 mb-0.5">
+              <h2 className="text-xs font-bold">{hero.name}</h2>
               <button onClick={handleToggleLock} className="text-muted-foreground hover:text-foreground">
-                <Lock className={cn('w-4 h-4', hero.isLocked && 'text-gold-primary')} />
+                <Lock className={cn('w-3 h-3', hero.isLocked && 'text-gold-primary')} />
               </button>
             </div>
             
             {/* 星级 */}
-            <div className="flex gap-0.5 mb-2">
+            <div className="flex gap-0 mb-1">
               {Array.from({ length: hero.maxStar }).map((_, i) => (
                 <Star
                   key={i}
                   className={cn(
-                    'w-4 h-4',
+                    'w-3 h-3',
                     i < hero.star ? 'fill-gold-primary text-gold-primary' : 'fill-muted text-muted'
                   )}
                 />
@@ -255,26 +255,26 @@ export function HeroDetailScreen({
             </div>
             
             {/* 战力 */}
-            <div className="flex items-center gap-2">
-              <Sword className="w-4 h-4 text-gold-primary" />
-              <span className="text-gold-light font-bold">{hero.power.toLocaleString()}</span>
+            <div className="flex items-center gap-1">
+              <Sword className="w-3 h-3 text-gold-primary" />
+              <span className="text-[11px] text-gold-light font-bold">{hero.power.toLocaleString()}</span>
             </div>
           </div>
           
           {/* 功能按钮 */}
-          <div className="flex flex-col gap-2">
-            <button className="p-2 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-              <RefreshCw className="w-4 h-4 text-muted-foreground" />
+          <div className="flex flex-col gap-1">
+            <button className="p-1.5 rounded-md bg-muted/50 hover:bg-muted transition-colors">
+              <RefreshCw className="w-3 h-3 text-muted-foreground" />
             </button>
-            <button className="p-2 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
-              <MessageCircle className="w-4 h-4 text-muted-foreground" />
+            <button className="p-1.5 rounded-md bg-muted/50 hover:bg-muted transition-colors">
+              <MessageCircle className="w-3 h-3 text-muted-foreground" />
             </button>
           </div>
         </div>
       </div>
 
       {/* 一级页签 */}
-      <div className="px-4 py-2">
+      <div className="px-2.5 py-1">
         <TabBar tabs={mainTabs} activeTab={activeMainTab} onChange={setActiveMainTab} />
       </div>
 

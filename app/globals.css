@@ -169,20 +169,71 @@
   }
 }
 
-/* 移动端游戏UI容器 - 9:16竖屏 */
+/* 移动端游戏UI容器 - 9:16竖屏 (1080x1920设计分辨率) */
 .game-container {
   width: 100%;
-  max-width: 540px;
+  max-width: 375px; /* 按1080/2.88缩放适配移动端 */
   height: 100vh;
-  max-height: 960px;
+  max-height: 667px; /* 按1920/2.88缩放适配移动端 */
   margin: 0 auto;
   position: relative;
   overflow: hidden;
+  font-size: 14px; /* 基准字号 */
 }
 
+/* 小屏手机适配 */
+@media (max-height: 700px) {
+  .game-container {
+    max-height: 100vh;
+    font-size: 12px;
+  }
+}
+
+/* 中等屏幕 */
+@media (min-width: 414px) {
+  .game-container {
+    max-width: 414px;
+    max-height: 736px;
+  }
+}
+
+/* 大屏手机 */
+@media (min-width: 428px) {
+  .game-container {
+    max-width: 428px;
+    max-height: 926px;
+  }
+}
+
+/* 平板/桌面端预览 */
 @media (min-width: 768px) {
   .game-container {
-    border-radius: 24px;
+    max-width: 390px;
+    max-height: 844px;
+    border-radius: 40px;
     box-shadow: 0 0 60px oklch(0 0 0 / 0.5);
   }
+}
+
+/* 游戏内通用小尺寸文字 */
+.text-game-xs { font-size: 10px; line-height: 1.2; }
+.text-game-sm { font-size: 11px; line-height: 1.3; }
+.text-game-base { font-size: 12px; line-height: 1.4; }
+.text-game-lg { font-size: 14px; line-height: 1.4; }
+.text-game-xl { font-size: 16px; line-height: 1.3; }
+.text-game-2xl { font-size: 18px; line-height: 1.2; }
+
+/* 紧凑间距 */
+.gap-game-xs { gap: 2px; }
+.gap-game-sm { gap: 4px; }
+.gap-game-md { gap: 6px; }
+.gap-game-lg { gap: 8px; }
+
+/* 滚动条隐藏 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

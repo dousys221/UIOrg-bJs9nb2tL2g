@@ -141,16 +141,16 @@ export function StageMapScreen({
       )} />
 
       {/* 顶部导航 */}
-      <div className="relative z-10 px-4 pt-4 pb-2">
-        <div className="flex items-center justify-between">
+      <div className="relative z-10 px-2.5 pt-2 pb-1">
+        <div className="flex items-center justify-between gap-2">
           <button
             onClick={onBack}
-            className="flex items-center justify-center w-12 h-12 rounded-lg bg-card/80 border border-border backdrop-blur-sm transition-all duration-200 hover:bg-card active:scale-95"
+            className="flex items-center justify-center w-8 h-8 rounded-md bg-card/80 border border-border backdrop-blur-sm transition-all duration-200 hover:bg-card active:scale-95"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
           
-          <h1 className="text-xl font-bold">章节地图</h1>
+          <h1 className="text-sm font-bold">章节地图</h1>
           
           <ResourceBar
             gold={player.gold}
@@ -162,11 +162,11 @@ export function StageMapScreen({
       </div>
 
       {/* 总进度 */}
-      <div className="relative z-10 px-4 py-2">
-        <GlowCard className="p-3">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium">主线进度</span>
-            <span className="text-xs text-muted-foreground">
+      <div className="relative z-10 px-2.5 py-1">
+        <GlowCard className="p-2">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-[10px] font-medium">主线进度</span>
+            <span className="text-[9px] text-muted-foreground">
               {clearedStages}/{totalStages} 关
             </span>
           </div>
@@ -175,18 +175,18 @@ export function StageMapScreen({
       </div>
 
       {/* 章节信息展示 */}
-      <div className="relative z-10 px-4 py-4 flex-1">
+      <div className="relative z-10 px-2.5 py-2 flex-1">
         <GlowCard 
-          className="h-full p-4 flex flex-col" 
+          className="h-full p-2.5 flex flex-col" 
           glowColor={selectedChapter.isUnlocked ? 'gold' : 'blue'}
         >
           {/* 章节标题 */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-2">
             <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm text-muted-foreground">第{selectedChapter.id}章</span>
+              <div className="flex items-center gap-1.5 mb-0.5">
+                <span className="text-[10px] text-muted-foreground">第{selectedChapter.id}章</span>
                 <span className={cn(
-                  'px-2 py-0.5 rounded text-[10px] font-bold',
+                  'px-1.5 py-0 rounded text-[8px] font-bold',
                   selectedChapter.difficulty === 'nightmare' ? 'bg-destructive/20 text-destructive' :
                   selectedChapter.difficulty === 'hard' ? 'bg-purple-500/20 text-purple-400' :
                   'bg-success/20 text-success'
@@ -195,19 +195,19 @@ export function StageMapScreen({
                    selectedChapter.difficulty === 'hard' ? '困难' : '普通'}
                 </span>
               </div>
-              <h2 className="text-2xl font-bold">{selectedChapter.name}</h2>
-              <p className="text-sm text-muted-foreground mt-1">{selectedChapter.description}</p>
+              <h2 className="text-base font-bold">{selectedChapter.name}</h2>
+              <p className="text-[10px] text-muted-foreground">{selectedChapter.description}</p>
             </div>
             {!selectedChapter.isUnlocked && (
-              <Lock className="w-8 h-8 text-muted-foreground" />
+              <Lock className="w-6 h-6 text-muted-foreground" />
             )}
           </div>
 
           {/* 章节进度 */}
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm text-muted-foreground">章节进度</span>
-              <span className="text-sm">
+          <div className="mb-2">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] text-muted-foreground">章节进度</span>
+              <span className="text-[10px]">
                 <span className="text-primary font-bold">{selectedChapter.clearedStages}</span>
                 <span className="text-muted-foreground">/{selectedChapter.totalStages}</span>
               </span>
@@ -220,13 +220,13 @@ export function StageMapScreen({
           </div>
 
           {/* 掉落奖励 */}
-          <div className="mb-4">
-            <p className="text-sm text-muted-foreground mb-2">章节奖励</p>
-            <div className="flex flex-wrap gap-2">
+          <div className="mb-2">
+            <p className="text-[10px] text-muted-foreground mb-1">章节奖励</p>
+            <div className="flex flex-wrap gap-1">
               {selectedChapter.rewards.map((reward, idx) => (
                 <span 
                   key={idx}
-                  className="px-3 py-1 bg-muted/50 rounded-lg text-xs"
+                  className="px-2 py-0.5 bg-muted/50 rounded-md text-[9px]"
                 >
                   {reward}
                 </span>
@@ -236,14 +236,14 @@ export function StageMapScreen({
 
           {/* 星级评价 */}
           {selectedChapter.isUnlocked && selectedChapter.clearedStages > 0 && (
-            <div className="mb-4">
-              <p className="text-sm text-muted-foreground mb-2">评价</p>
-              <div className="flex gap-1">
+            <div className="mb-2">
+              <p className="text-[10px] text-muted-foreground mb-1">评价</p>
+              <div className="flex gap-0.5">
                 {[1, 2, 3].map((s) => (
                   <Star 
                     key={s}
                     className={cn(
-                      'w-6 h-6',
+                      'w-4 h-4',
                       s <= Math.ceil((selectedChapter.clearedStages / selectedChapter.totalStages) * 3)
                         ? 'fill-gold-primary text-gold-primary'
                         : 'fill-muted text-muted'
@@ -262,13 +262,13 @@ export function StageMapScreen({
                 className="w-full"
                 onClick={handleEnterChapter}
               >
-                <Play className="w-5 h-5 mr-2" />
-                {selectedChapter.clearedStages === selectedChapter.totalStages ? '重新挑战' : '继续冒险'}
+                <Play className="w-4 h-4 mr-1" />
+                <span className="text-xs">{selectedChapter.clearedStages === selectedChapter.totalStages ? '重新挑战' : '继续冒险'}</span>
               </HexButton>
             ) : (
-              <div className="text-center py-4">
-                <p className="text-sm text-muted-foreground mb-2">解锁条件</p>
-                <p className="text-sm text-primary">通关第{selectedChapter.id - 1}章</p>
+              <div className="text-center py-2">
+                <p className="text-[10px] text-muted-foreground mb-1">解锁条件</p>
+                <p className="text-[10px] text-primary">通关第{selectedChapter.id - 1}章</p>
               </div>
             )}
           </div>
@@ -276,10 +276,10 @@ export function StageMapScreen({
       </div>
 
       {/* 底部章节滑动条 */}
-      <div className="relative z-10 px-4 py-4 bg-gradient-to-t from-background to-transparent">
+      <div className="relative z-10 px-2.5 py-2 bg-gradient-to-t from-background to-transparent">
         <div 
           ref={scrollRef}
-          className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide cursor-grab active:cursor-grabbing"
+          className="flex gap-1.5 overflow-x-auto pb-1 scrollbar-hide cursor-grab active:cursor-grabbing"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -297,13 +297,13 @@ export function StageMapScreen({
         </div>
         
         {/* 滑动指示 */}
-        <div className="flex justify-center mt-2 gap-1">
+        <div className="flex justify-center mt-1 gap-0.5">
           {chapters.map((chapter) => (
             <div
               key={chapter.id}
               className={cn(
-                'w-2 h-2 rounded-full transition-all',
-                selectedChapter.id === chapter.id ? 'bg-primary w-4' : 'bg-muted'
+                'w-1.5 h-1.5 rounded-full transition-all',
+                selectedChapter.id === chapter.id ? 'bg-primary w-3' : 'bg-muted'
               )}
             />
           ))}
@@ -326,9 +326,9 @@ function ChapterNode({ chapter, index, isSelected, onClick }: ChapterNodeProps) 
     <button
       onClick={onClick}
       className={cn(
-        'flex-shrink-0 w-[120px] flex flex-col items-center gap-2 p-3 rounded-xl transition-all duration-200',
+        'flex-shrink-0 w-[80px] flex flex-col items-center gap-1 p-2 rounded-lg transition-all duration-200',
         isSelected 
-          ? 'bg-primary/20 border-2 border-primary scale-105' 
+          ? 'bg-primary/20 border border-primary scale-105' 
           : chapter.isUnlocked 
             ? 'bg-card/80 border border-border hover:border-primary/50' 
             : 'bg-muted/30 border border-border/50 opacity-60',
@@ -338,33 +338,33 @@ function ChapterNode({ chapter, index, isSelected, onClick }: ChapterNodeProps) 
     >
       {/* 章节图标 */}
       <div className={cn(
-        'w-14 h-14 rounded-xl flex items-center justify-center relative',
+        'w-10 h-10 rounded-lg flex items-center justify-center relative',
         chapter.isUnlocked 
           ? 'bg-gradient-to-br from-primary/30 to-accent/30' 
           : 'bg-muted'
       )}>
         {chapter.isUnlocked ? (
-          <span className="text-xl font-bold">{chapter.id}</span>
+          <span className="text-sm font-bold">{chapter.id}</span>
         ) : (
-          <Lock className="w-6 h-6 text-muted-foreground" />
+          <Lock className="w-4 h-4 text-muted-foreground" />
         )}
         
         {/* 当前章节标识 */}
         {chapter.isCurrent && (
-          <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-success animate-pulse" />
+          <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-success animate-pulse" />
         )}
         
         {/* 完成标识 */}
         {chapter.clearedStages === chapter.totalStages && chapter.isUnlocked && (
-          <div className="absolute -bottom-1 -right-1">
-            <Star className="w-4 h-4 fill-gold-primary text-gold-primary" />
+          <div className="absolute -bottom-0.5 -right-0.5">
+            <Star className="w-3 h-3 fill-gold-primary text-gold-primary" />
           </div>
         )}
       </div>
       
       {/* 章节名称 */}
       <p className={cn(
-        'text-xs font-medium text-center truncate w-full',
+        'text-[9px] font-medium text-center truncate w-full',
         isSelected ? 'text-primary' : 'text-foreground'
       )}>
         {chapter.name}

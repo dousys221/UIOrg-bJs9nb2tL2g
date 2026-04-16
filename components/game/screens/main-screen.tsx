@@ -44,27 +44,27 @@ export function MainScreen({ player, onNavigate, redDots = {} }: MainScreenProps
     <div className="relative w-full h-full flex flex-col bg-gradient-to-b from-card to-background overflow-hidden">
       {/* 背景装饰 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-blue-tech/3 blur-3xl" />
-        <div className="absolute bottom-1/3 left-0 w-[300px] h-[300px] rounded-full bg-gold-primary/3 blur-3xl" />
+        <div className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full bg-blue-tech/3 blur-3xl" />
+        <div className="absolute bottom-1/3 left-0 w-[150px] h-[150px] rounded-full bg-gold-primary/3 blur-3xl" />
       </div>
       
       {/* 顶部状态栏 */}
-      <div className="relative z-10 px-4 pt-4 pb-2">
-        <div className="flex items-center justify-between">
+      <div className="relative z-10 px-2.5 pt-2 pb-1">
+        <div className="flex items-center justify-between gap-2">
           {/* 玩家信息 */}
           <button 
             onClick={() => setShowPlayerInfo(!showPlayerInfo)}
-            className="flex items-center gap-3 px-3 py-2 bg-card/80 rounded-xl border border-border backdrop-blur-sm"
+            className="flex items-center gap-2 px-2 py-1.5 bg-card/80 rounded-lg border border-border backdrop-blur-sm"
           >
-            <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-gold-secondary to-gold-primary flex items-center justify-center">
-              <User className="w-6 h-6 text-primary-foreground" />
-              <span className="absolute -bottom-1 -right-1 px-1.5 py-0.5 bg-destructive rounded text-[10px] font-bold text-white">
-                VIP{player.vip}
+            <div className="relative w-8 h-8 rounded-full bg-gradient-to-br from-gold-secondary to-gold-primary flex items-center justify-center">
+              <User className="w-4 h-4 text-primary-foreground" />
+              <span className="absolute -bottom-0.5 -right-0.5 px-1 py-0 bg-destructive rounded text-[8px] font-bold text-white">
+                V{player.vip}
               </span>
             </div>
             <div className="text-left">
-              <p className="text-sm font-bold">{player.name}</p>
-              <p className="text-xs text-muted-foreground">Lv.{player.level}</p>
+              <p className="text-[11px] font-bold leading-tight">{player.name}</p>
+              <p className="text-[9px] text-muted-foreground">Lv.{player.level}</p>
             </div>
           </button>
           
@@ -78,81 +78,81 @@ export function MainScreen({ player, onNavigate, redDots = {} }: MainScreenProps
         </div>
         
         {/* 战力显示 */}
-        <div className="mt-3 flex items-center justify-center gap-2 py-2">
-          <Sword className="w-4 h-4 text-gold-primary" />
-          <span className="text-sm text-muted-foreground">战力</span>
-          <span className="text-xl font-bold text-gold-light">{player.power.toLocaleString()}</span>
+        <div className="mt-1.5 flex items-center justify-center gap-1.5 py-1">
+          <Sword className="w-3 h-3 text-gold-primary" />
+          <span className="text-[10px] text-muted-foreground">战力</span>
+          <span className="text-sm font-bold text-gold-light">{player.power.toLocaleString()}</span>
         </div>
       </div>
       
       {/* 中部活动区域 */}
-      <div className="flex-1 relative z-10 px-4">
+      <div className="flex-1 relative z-10 px-2.5 overflow-hidden">
         {/* 活动入口网格 */}
-        <div className="grid grid-cols-5 gap-3 py-4">
+        <div className="grid grid-cols-5 gap-1.5 py-2">
           {activityItems.map((item) => (
             <button
               key={item.id}
-              className="relative flex flex-col items-center gap-2 py-3 px-2 bg-card/60 rounded-xl border border-border backdrop-blur-sm hover:bg-card transition-colors"
+              className="relative flex flex-col items-center gap-1 py-1.5 px-1 bg-card/60 rounded-lg border border-border backdrop-blur-sm hover:bg-card transition-colors"
             >
-              <div className={`p-2 rounded-lg bg-muted ${item.color}`}>
-                <item.icon className="w-6 h-6" />
+              <div className={`p-1.5 rounded-md bg-muted ${item.color}`}>
+                <item.icon className="w-4 h-4" />
               </div>
-              <span className="text-xs font-medium text-center leading-tight">{item.label}</span>
+              <span className="text-[9px] font-medium text-center leading-tight">{item.label}</span>
               {redDots[item.id] && <RedDot />}
             </button>
           ))}
         </div>
         
         {/* 主战斗入口 - 进入关卡主界面 */}
-        <div className="mt-4">
+        <div className="mt-2">
           <GameButton
             variant="primary"
             size="lg"
-            className="w-full h-20 text-xl"
+            className="w-full h-12"
             onClick={() => onNavigate('level-main')}
           >
-            <div className="flex items-center gap-3">
-              <Sword className="w-8 h-8" />
-              <span>进入战斗</span>
+            <div className="flex items-center gap-2">
+              <Sword className="w-5 h-5" />
+              <span className="text-sm font-bold">进入战斗</span>
             </div>
           </GameButton>
         </div>
         
         {/* 功能入口按钮 */}
-        <div className="mt-4 grid grid-cols-5 gap-2">
+        <div className="mt-2 grid grid-cols-5 gap-1.5">
           {featureButtons.map((btn) => (
             <button
               key={btn.id}
               onClick={() => onNavigate(btn.screen)}
-              className="relative flex flex-col items-center gap-1 py-2 bg-card/60 rounded-lg border border-border hover:bg-card transition-colors"
+              className="relative flex flex-col items-center gap-0.5 py-1.5 bg-card/60 rounded-md border border-border hover:bg-card transition-colors"
             >
-              <btn.icon className="w-5 h-5 text-primary" />
-              <span className="text-[10px] text-muted-foreground">{btn.label}</span>
-              {btn.redDot && <RedDot className="absolute -top-1 -right-1" />}
+              <btn.icon className="w-4 h-4 text-primary" />
+              <span className="text-[8px] text-muted-foreground">{btn.label}</span>
+              {btn.redDot && <RedDot />}
             </button>
           ))}
         </div>
       </div>
       
       {/* 底部功能区 */}
-      <div className="relative z-10 px-4 pb-6 space-y-4">
+      <div className="relative z-10 px-2.5 pb-3 space-y-2">
         {/* 快捷功能按钮 */}
-        <div className="flex items-center justify-end gap-2">
+        <div className="flex items-center justify-end gap-1.5">
           {quickButtons.map((btn) => (
             <button
               key={btn.id}
               onClick={() => onNavigate(btn.screen)}
-              className="relative flex flex-col items-center gap-1 w-16 py-2 bg-card/80 rounded-xl border border-border backdrop-blur-sm hover:bg-card transition-colors"
+              className="relative flex flex-col items-center gap-0.5 w-12 py-1.5 bg-card/80 rounded-lg border border-border backdrop-blur-sm hover:bg-card transition-colors"
             >
-              <btn.icon className="w-5 h-5 text-gold-primary" />
-              <span className="text-[10px] text-muted-foreground">{btn.label}</span>
+              <btn.icon className="w-4 h-4 text-gold-primary" />
+              <span className="text-[8px] text-muted-foreground">{btn.label}</span>
               {redDots[btn.id] && <RedDot />}
             </button>
           ))}
         </div>
         
         {/* 底部导航栏 */}
-        <div className="flex items-center justify-around py-2 bg-card/80 rounded-2xl border border-border backdrop-blur-sm">
+        <div className="flex items-center justify-around py-1.5 bg-card/80 rounded-xl border border-border backdrop-blur-sm">
           <NavButton 
             icon={Package} 
             label="背包" 
@@ -186,31 +186,31 @@ export function MainScreen({ player, onNavigate, redDots = {} }: MainScreenProps
           onClick={() => setShowPlayerInfo(false)}
         >
           <div 
-            className="absolute top-20 left-4 right-4 bg-card rounded-xl border border-border p-4 space-y-3"
+            className="absolute top-14 left-2.5 right-2.5 bg-card rounded-lg border border-border p-3 space-y-2"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold-secondary to-gold-primary flex items-center justify-center">
-                <User className="w-8 h-8 text-primary-foreground" />
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-gold-secondary to-gold-primary flex items-center justify-center">
+                <User className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <p className="text-lg font-bold">{player.name}</p>
-                <p className="text-sm text-muted-foreground">UID: {player.id}</p>
-                <p className="text-sm text-muted-foreground">公会: {player.guildName || '未加入'}</p>
+                <p className="text-sm font-bold">{player.name}</p>
+                <p className="text-[10px] text-muted-foreground">UID: {player.id}</p>
+                <p className="text-[10px] text-muted-foreground">公会: {player.guildName || '未加入'}</p>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-border">
+            <div className="grid grid-cols-3 gap-1.5 pt-2 border-t border-border">
               <div className="text-center">
-                <p className="text-xl font-bold text-gold-light">{player.level}</p>
-                <p className="text-xs text-muted-foreground">等级</p>
+                <p className="text-base font-bold text-gold-light">{player.level}</p>
+                <p className="text-[9px] text-muted-foreground">等级</p>
               </div>
               <div className="text-center">
-                <p className="text-xl font-bold text-blue-tech">{player.power.toLocaleString()}</p>
-                <p className="text-xs text-muted-foreground">战力</p>
+                <p className="text-base font-bold text-blue-tech">{player.power.toLocaleString()}</p>
+                <p className="text-[9px] text-muted-foreground">战力</p>
               </div>
               <div className="text-center">
-                <p className="text-xl font-bold text-destructive">VIP{player.vip}</p>
-                <p className="text-xs text-muted-foreground">等级</p>
+                <p className="text-base font-bold text-destructive">VIP{player.vip}</p>
+                <p className="text-[9px] text-muted-foreground">等级</p>
               </div>
             </div>
           </div>
@@ -234,10 +234,10 @@ function NavButton({
   return (
     <button
       onClick={onClick}
-      className="relative flex flex-col items-center gap-1.5 px-4 py-2"
+      className="relative flex flex-col items-center gap-0.5 px-3 py-1"
     >
-      <Icon className="w-6 h-6 text-foreground" />
-      <span className="text-xs text-muted-foreground">{label}</span>
+      <Icon className="w-4 h-4 text-foreground" />
+      <span className="text-[9px] text-muted-foreground">{label}</span>
       {redDot && <RedDot />}
     </button>
   )

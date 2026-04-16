@@ -171,39 +171,39 @@ export function RecruitMainScreen({
       </div>
 
       {/* 顶部导航 */}
-      <div className="relative z-10 px-4 pt-4 pb-2">
-        <div className="flex items-center justify-between">
+      <div className="relative z-10 px-2.5 pt-2 pb-1">
+        <div className="flex items-center justify-between gap-2">
           {/* 返回按钮 */}
           <button
             onClick={onBack}
-            className="flex items-center justify-center w-12 h-12 rounded-lg bg-card/80 border border-border backdrop-blur-sm transition-all duration-200 hover:bg-card active:scale-95"
+            className="flex items-center justify-center w-8 h-8 rounded-md bg-card/80 border border-border backdrop-blur-sm transition-all duration-200 hover:bg-card active:scale-95"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
           
           {/* 功能按钮 */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => onOpenPreview(activePool)}
-              className="flex items-center gap-1 px-3 py-2 bg-card/80 rounded-lg border border-border backdrop-blur-sm hover:bg-card transition-colors"
+              className="flex items-center gap-1 px-2 py-1 bg-card/80 rounded-md border border-border backdrop-blur-sm hover:bg-card transition-colors"
             >
-              <Eye className="w-4 h-4 text-muted-foreground" />
-              <span className="text-xs">概率预览</span>
+              <Eye className="w-3 h-3 text-muted-foreground" />
+              <span className="text-[10px]">概率</span>
             </button>
             <button
               onClick={onOpenRecommend}
-              className="relative flex items-center gap-1 px-3 py-2 bg-card/80 rounded-lg border border-border backdrop-blur-sm hover:bg-card transition-colors"
+              className="relative flex items-center gap-1 px-2 py-1 bg-card/80 rounded-md border border-border backdrop-blur-sm hover:bg-card transition-colors"
             >
-              <Users className="w-4 h-4 text-muted-foreground" />
-              <span className="text-xs">推荐阵容</span>
-              <RedDot className="absolute -top-1 -right-1" />
+              <Users className="w-3 h-3 text-muted-foreground" />
+              <span className="text-[10px]">阵容</span>
+              <RedDot />
             </button>
           </div>
         </div>
       </div>
 
       {/* 资源栏 */}
-      <div className="px-4 py-2">
+      <div className="px-2.5 py-1">
         <ResourceBar
           gold={player.gold}
           diamond={player.diamond}
@@ -213,34 +213,34 @@ export function RecruitMainScreen({
       </div>
 
       {/* 积分宝箱进度 */}
-      <div className="px-4 py-2">
-        <GlowCard className="p-3" glowColor="gold">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2">
-              <Gift className="w-5 h-5 text-gold-primary" />
-              <span className="text-sm font-medium">召唤积分</span>
+      <div className="px-2.5 py-1">
+        <GlowCard className="p-2" glowColor="gold">
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center gap-1.5">
+              <Gift className="w-4 h-4 text-gold-primary" />
+              <span className="text-[10px] font-medium">召唤积分</span>
             </div>
             <button
               onClick={onOpenRewardBox}
               disabled={recruitBoxPoints < recruitBoxMax}
               className={cn(
-                'px-3 py-1 rounded-lg text-xs font-medium transition-colors',
+                'px-2 py-0.5 rounded-md text-[10px] font-medium transition-colors',
                 recruitBoxPoints >= recruitBoxMax
                   ? 'bg-gradient-to-b from-gold-secondary to-gold-primary text-primary-foreground animate-pulse'
                   : 'bg-muted text-muted-foreground'
               )}
             >
-              {recruitBoxPoints >= recruitBoxMax ? '领取奖励' : '查看奖励'}
+              {recruitBoxPoints >= recruitBoxMax ? '领取' : '查看'}
             </button>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <ProgressBar 
               value={recruitBoxPoints} 
               max={recruitBoxMax} 
               color="gold" 
               className="flex-1"
             />
-            <span className="text-xs text-muted-foreground whitespace-nowrap">
+            <span className="text-[9px] text-muted-foreground whitespace-nowrap">
               {recruitBoxPoints}/{recruitBoxMax}
             </span>
           </div>
@@ -248,31 +248,31 @@ export function RecruitMainScreen({
       </div>
 
       {/* 奖池切换 */}
-      <div className="px-4 py-3">
-        <div className="flex items-center gap-2">
+      <div className="px-2.5 py-1.5">
+        <div className="flex items-center gap-1.5">
           {pools.map((pool) => (
             <button
               key={pool.id}
               onClick={() => setActivePool(pool.id)}
               className={cn(
-                'flex-1 px-3 py-3 rounded-xl transition-all duration-200',
-                'border-2',
+                'flex-1 px-2 py-2 rounded-lg transition-all duration-200',
+                'border',
                 activePool === pool.id
-                  ? 'bg-gradient-to-b from-primary/20 to-card border-primary shadow-lg shadow-primary/20'
+                  ? 'bg-gradient-to-b from-primary/20 to-card border-primary shadow-md shadow-primary/20'
                   : 'bg-card/50 border-border/50 hover:border-border'
               )}
             >
               <div className="text-center">
                 <p className={cn(
-                  'text-sm font-bold mb-1',
+                  'text-[10px] font-bold',
                   activePool === pool.id ? 'text-primary' : 'text-foreground'
                 )}>
                   {pool.name}
                 </p>
                 {pool.featuredHero && (
-                  <div className="flex items-center justify-center gap-1">
-                    <Star className="w-3 h-3 text-gold-primary fill-gold-primary" />
-                    <span className="text-[10px] text-gold-light">{pool.featuredHero.name}</span>
+                  <div className="flex items-center justify-center gap-0.5 mt-0.5">
+                    <Star className="w-2 h-2 text-gold-primary fill-gold-primary" />
+                    <span className="text-[8px] text-gold-light truncate">{pool.featuredHero.name}</span>
                   </div>
                 )}
               </div>
@@ -282,19 +282,19 @@ export function RecruitMainScreen({
       </div>
 
       {/* 当前奖池内容 */}
-      <div className="flex-1 px-4 py-2 overflow-y-auto">
-        <GlowCard className="p-4" glowColor={currentPool.type === 'premium' ? 'purple' : 'blue'}>
+      <div className="flex-1 px-2.5 py-1 overflow-y-auto">
+        <GlowCard className="p-2.5" glowColor={currentPool.type === 'premium' ? 'purple' : 'blue'}>
           {/* 奖池信息 */}
-          <div className="text-center mb-4">
-            <h2 className="text-xl font-bold mb-1">{currentPool.name}</h2>
-            <p className="text-sm text-muted-foreground">{currentPool.description}</p>
+          <div className="text-center mb-2">
+            <h2 className="text-sm font-bold">{currentPool.name}</h2>
+            <p className="text-[10px] text-muted-foreground">{currentPool.description}</p>
           </div>
 
           {/* 保底进度 */}
-          <div className="mb-4 p-3 bg-muted/30 rounded-lg">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs text-muted-foreground">保底进度</span>
-              <span className="text-xs">
+          <div className="mb-2 p-2 bg-muted/30 rounded-md">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[9px] text-muted-foreground">保底进度</span>
+              <span className="text-[9px]">
                 <span className="text-primary font-bold">{currentPool.guaranteeCount}</span>
                 <span className="text-muted-foreground">/{currentPool.guaranteeMax}</span>
               </span>
@@ -308,14 +308,14 @@ export function RecruitMainScreen({
 
           {/* 免费/倒计时状态 */}
           {(currentPool.freeCount > 0 || countdowns[currentPool.id] !== undefined) && (
-            <div className="mb-4 p-3 bg-success/10 rounded-lg border border-success/20">
+            <div className="mb-2 p-2 bg-success/10 rounded-md border border-success/20">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-success font-medium">
-                  {canFreePull(currentPool.id) ? '免费召唤可用' : '免费召唤倒计时'}
+                <span className="text-[10px] text-success font-medium">
+                  {canFreePull(currentPool.id) ? '免费召唤可用' : '免费倒计时'}
                 </span>
                 {!canFreePull(currentPool.id) && countdowns[currentPool.id] !== undefined && (
-                  <div className="flex items-center gap-1 text-sm">
-                    <Clock className="w-4 h-4 text-accent" />
+                  <div className="flex items-center gap-1 text-[10px]">
+                    <Clock className="w-3 h-3 text-accent" />
                     <span className="text-accent font-mono">{formatTime(countdowns[currentPool.id])}</span>
                   </div>
                 )}
@@ -324,7 +324,7 @@ export function RecruitMainScreen({
           )}
 
           {/* 抽卡按钮 */}
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             {/* 单抽 */}
             <div className="flex-1">
               <HexButton
@@ -333,14 +333,14 @@ export function RecruitMainScreen({
                 onClick={() => onSingleRecruit(currentPool.id)}
               >
                 <div className="flex flex-col items-center">
-                  <span className="font-bold">单抽</span>
-                  <div className="flex items-center gap-1 mt-1">
+                  <span className="text-xs font-bold">单抽</span>
+                  <div className="flex items-center gap-0.5">
                     {canFreePull(currentPool.id) ? (
-                      <span className="text-xs">免费</span>
+                      <span className="text-[9px]">免费</span>
                     ) : (
                       <>
                         {getCostIcon(currentPool.singleCost.type)}
-                        <span className="text-xs">{currentPool.singleCost.amount}</span>
+                        <span className="text-[9px]">{currentPool.singleCost.amount}</span>
                       </>
                     )}
                   </div>
@@ -356,10 +356,10 @@ export function RecruitMainScreen({
                 onClick={() => onTenRecruit(currentPool.id)}
               >
                 <div className="flex flex-col items-center">
-                  <span className="font-bold">十连</span>
-                  <div className="flex items-center gap-1 mt-1">
+                  <span className="text-xs font-bold">十连</span>
+                  <div className="flex items-center gap-0.5">
                     {getCostIcon(currentPool.tenCost.type)}
-                    <span className="text-xs">{currentPool.tenCost.amount}</span>
+                    <span className="text-[9px]">{currentPool.tenCost.amount}</span>
                   </div>
                 </div>
               </HexButton>
@@ -369,45 +369,45 @@ export function RecruitMainScreen({
 
         {/* UP英雄展示 (仅高级池) */}
         {currentPool.featuredHero && (
-          <GlowCard className="mt-4 p-4" glowColor="purple">
+          <GlowCard className="mt-2 p-2" glowColor="purple">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-gold-primary to-gold-secondary flex items-center justify-center">
-                  <Sparkles className="w-8 h-8 text-primary-foreground" />
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-primary to-gold-secondary flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-primary-foreground" />
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground">UP英雄</p>
-                  <p className="text-lg font-bold">{currentPool.featuredHero.name}</p>
-                  <div className="flex gap-0.5 mt-1">
+                  <p className="text-[9px] text-muted-foreground">UP英雄</p>
+                  <p className="text-xs font-bold">{currentPool.featuredHero.name}</p>
+                  <div className="flex gap-0">
                     {Array.from({ length: currentPool.featuredHero.quality }).map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-gold-primary text-gold-primary" />
+                      <Star key={i} className="w-2 h-2 fill-gold-primary text-gold-primary" />
                     ))}
                   </div>
                 </div>
               </div>
-              <ChevronRight className="w-5 h-5 text-muted-foreground" />
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
             </div>
           </GlowCard>
         )}
       </div>
 
       {/* 底部：跳过动画开关 */}
-      <div className="relative z-10 px-4 py-4 bg-gradient-to-t from-background to-transparent">
-        <div className="flex items-center justify-between p-3 bg-card/80 rounded-xl border border-border backdrop-blur-sm">
-          <div className="flex items-center gap-2">
-            <SkipForward className="w-4 h-4 text-muted-foreground" />
-            <span className="text-sm">跳过抽卡动画</span>
+      <div className="relative z-10 px-2.5 py-2 bg-gradient-to-t from-background to-transparent">
+        <div className="flex items-center justify-between p-2 bg-card/80 rounded-lg border border-border backdrop-blur-sm">
+          <div className="flex items-center gap-1.5">
+            <SkipForward className="w-3 h-3 text-muted-foreground" />
+            <span className="text-[10px]">跳过抽卡动画</span>
           </div>
           <button
             onClick={handleToggleJump}
             className={cn(
-              'w-12 h-6 rounded-full transition-colors relative',
+              'w-9 h-5 rounded-full transition-colors relative',
               isJump ? 'bg-primary' : 'bg-muted'
             )}
           >
             <div className={cn(
-              'absolute top-1 w-4 h-4 rounded-full bg-white transition-transform',
-              isJump ? 'translate-x-7' : 'translate-x-1'
+              'absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform',
+              isJump ? 'translate-x-[18px]' : 'translate-x-0.5'
             )} />
           </button>
         </div>

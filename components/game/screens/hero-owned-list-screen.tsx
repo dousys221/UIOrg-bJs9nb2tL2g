@@ -139,18 +139,18 @@ export function HeroOwnedListScreen({
   return (
     <div className="relative w-full h-full flex flex-col bg-gradient-to-b from-card to-background overflow-hidden">
       {/* 顶部导航 */}
-      <div className="relative z-10 px-4 pt-4 pb-2">
-        <div className="flex items-center justify-between">
+      <div className="relative z-10 px-2.5 pt-2 pb-1">
+        <div className="flex items-center justify-between gap-2">
           {/* 返回按钮 */}
           <button
             onClick={onBack}
-            className="flex items-center justify-center w-12 h-12 rounded-lg bg-card/80 border border-border backdrop-blur-sm transition-all duration-200 hover:bg-card active:scale-95"
+            className="flex items-center justify-center w-8 h-8 rounded-md bg-card/80 border border-border backdrop-blur-sm transition-all duration-200 hover:bg-card active:scale-95"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
           
           {/* 标题 */}
-          <h1 className="text-xl font-bold">英雄总览</h1>
+          <h1 className="text-sm font-bold">英雄总览</h1>
           
           {/* 资源栏 */}
           <ResourceBar
@@ -163,11 +163,11 @@ export function HeroOwnedListScreen({
       </div>
 
       {/* 英雄数量与扩容 */}
-      <div className="px-4 py-2">
-        <div className="flex items-center justify-between p-3 bg-card/80 rounded-xl border border-border backdrop-blur-sm">
-          <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-primary" />
-            <span className="text-sm">
+      <div className="px-2.5 py-1">
+        <div className="flex items-center justify-between p-2 bg-card/80 rounded-lg border border-border backdrop-blur-sm">
+          <div className="flex items-center gap-1.5">
+            <Users className="w-4 h-4 text-primary" />
+            <span className="text-[10px]">
               英雄数量：
               <span className="text-gold-primary font-bold">{heroCapacity.current}</span>
               <span className="text-muted-foreground">/{heroCapacity.max}</span>
@@ -175,23 +175,23 @@ export function HeroOwnedListScreen({
           </div>
           <button
             onClick={() => setShowExpandPopup(true)}
-            className="flex items-center gap-1 px-3 py-1.5 bg-primary/20 rounded-lg border border-primary/30 hover:bg-primary/30 transition-colors"
+            className="flex items-center gap-0.5 px-2 py-1 bg-primary/20 rounded-md border border-primary/30 hover:bg-primary/30 transition-colors"
           >
-            <Plus className="w-4 h-4 text-primary" />
-            <span className="text-xs text-primary font-medium">扩容</span>
+            <Plus className="w-3 h-3 text-primary" />
+            <span className="text-[10px] text-primary font-medium">扩容</span>
           </button>
         </div>
       </div>
 
       {/* 阵营筛选 */}
-      <div className="px-4 py-2">
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+      <div className="px-2.5 py-1">
+        <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-hide">
           {filterTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveFilter(tab.id)}
               className={cn(
-                'flex-shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition-all',
+                'flex-shrink-0 px-2.5 py-1 rounded-md text-[10px] font-medium transition-all',
                 activeFilter === tab.id
                   ? 'bg-gradient-to-b from-gold-secondary to-gold-primary text-primary-foreground'
                   : 'bg-card/80 border border-border text-muted-foreground hover:text-foreground'
@@ -204,14 +204,14 @@ export function HeroOwnedListScreen({
       </div>
 
       {/* 英雄网格列表 */}
-      <div className="flex-1 px-4 py-2 overflow-y-auto">
+      <div className="flex-1 px-2.5 py-1 overflow-y-auto">
         {filteredHeroes.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
-            <Users className="w-16 h-16 mb-4 opacity-30" />
-            <p>暂无符合条件的英雄</p>
+            <Users className="w-10 h-10 mb-2 opacity-30" />
+            <p className="text-xs">暂无符合条件的英雄</p>
           </div>
         ) : (
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-1.5">
             {filteredHeroes.map((hero) => (
               <HeroCard
                 key={hero.id}
@@ -232,20 +232,20 @@ export function HeroOwnedListScreen({
           onClick={() => setShowExpandPopup(false)}
         >
           <div 
-            className="w-[85%] max-w-sm bg-card rounded-xl border border-border overflow-hidden"
+            className="w-[80%] max-w-[280px] bg-card rounded-lg border border-border overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 border-b border-border">
-              <h3 className="text-lg font-bold text-center">扩展英雄容量</h3>
+            <div className="p-2.5 border-b border-border">
+              <h3 className="text-sm font-bold text-center">扩展英雄容量</h3>
             </div>
-            <div className="p-6 text-center">
-              <p className="text-muted-foreground mb-4">
+            <div className="p-4 text-center">
+              <p className="text-[11px] text-muted-foreground mb-2">
                 当前容量：{heroCapacity.current}/{heroCapacity.max}
               </p>
-              <p className="mb-6">
+              <p className="text-xs mb-4">
                 消耗 <span className="text-blue-glow font-bold">100</span> 钻石扩展 <span className="text-gold-primary font-bold">10</span> 个位置
               </p>
-              <div className="flex gap-3">
+              <div className="flex gap-2">
                 <GameButton 
                   variant="secondary" 
                   className="flex-1"
@@ -299,35 +299,35 @@ function HeroCard({ hero, isAnimated, showRedPoint, onClick }: HeroCardProps) {
     <button
       onClick={onClick}
       className={cn(
-        'relative flex flex-col rounded-xl overflow-hidden transition-all duration-300',
-        'bg-gradient-to-br p-[2px]',
+        'relative flex flex-col rounded-lg overflow-hidden transition-all duration-300',
+        'bg-gradient-to-br p-[1px]',
         qualityColors[hero.quality],
         isAnimated ? 'opacity-100 scale-100' : 'opacity-0 scale-90',
         'hover:scale-105 active:scale-95'
       )}
     >
-      <div className="w-full h-full bg-card rounded-[10px] flex flex-col">
+      <div className="w-full h-full bg-card rounded-[7px] flex flex-col">
         {/* 英雄立绘区 */}
         <div className="relative aspect-square flex items-center justify-center bg-gradient-to-b from-muted/30 to-transparent">
           {/* 阵营图标 */}
-          <div className={cn('absolute top-1 left-1 p-1 rounded', property.bgColor)}>
-            <PropertyIcon className={cn('w-3 h-3', property.color)} />
+          <div className={cn('absolute top-0.5 left-0.5 p-0.5 rounded', property.bgColor)}>
+            <PropertyIcon className={cn('w-2.5 h-2.5', property.color)} />
           </div>
           
           {/* 等级 */}
-          <span className="absolute top-1 right-1 px-1.5 py-0.5 bg-black/60 rounded text-[10px] font-bold">
+          <span className="absolute top-0.5 right-0.5 px-1 py-0 bg-black/60 rounded text-[8px] font-bold">
             Lv.{hero.level}
           </span>
           
           {/* 上阵标识 */}
           {hero.isOnTeam && (
-            <div className="absolute bottom-1 left-1 px-1.5 py-0.5 bg-success/80 rounded text-[8px] font-bold text-white">
+            <div className="absolute bottom-0.5 left-0.5 px-1 py-0 bg-success/80 rounded text-[7px] font-bold text-white">
               上阵
             </div>
           )}
           
           {/* 英雄头像占位 */}
-          <div className="text-3xl">
+          <div className="text-xl">
             {hero.property === 'fire' && '🔥'}
             {hero.property === 'water' && '💧'}
             {hero.property === 'wind' && '🍃'}
@@ -338,14 +338,14 @@ function HeroCard({ hero, isAnimated, showRedPoint, onClick }: HeroCardProps) {
         </div>
         
         {/* 英雄信息 */}
-        <div className="p-1.5">
+        <div className="p-1">
           {/* 星级 */}
-          <div className="flex justify-center gap-0.5 mb-1">
+          <div className="flex justify-center gap-0">
             {Array.from({ length: hero.maxStar }).map((_, i) => (
               <Star
                 key={i}
                 className={cn(
-                  'w-2.5 h-2.5',
+                  'w-2 h-2',
                   i < hero.star ? 'fill-gold-primary text-gold-primary' : 'fill-muted text-muted'
                 )}
               />
@@ -353,18 +353,18 @@ function HeroCard({ hero, isAnimated, showRedPoint, onClick }: HeroCardProps) {
           </div>
           
           {/* 名称 */}
-          <p className="text-[10px] font-medium text-center truncate">{hero.name}</p>
+          <p className="text-[8px] font-medium text-center truncate mt-0.5">{hero.name}</p>
           
           {/* 战力 */}
-          <div className="flex items-center justify-center gap-0.5 mt-0.5">
-            <Sword className="w-2.5 h-2.5 text-gold-primary" />
-            <span className="text-[9px] text-gold-light">{(hero.power / 1000).toFixed(1)}K</span>
+          <div className="flex items-center justify-center gap-0.5">
+            <Sword className="w-2 h-2 text-gold-primary" />
+            <span className="text-[7px] text-gold-light">{(hero.power / 1000).toFixed(0)}K</span>
           </div>
         </div>
       </div>
       
       {/* 红点 */}
-      {showRedPoint && <RedDot className="absolute -top-0.5 -right-0.5" />}
+      {showRedPoint && <RedDot />}
     </button>
   )
 }
