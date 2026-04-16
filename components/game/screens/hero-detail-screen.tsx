@@ -282,11 +282,11 @@ export function HeroDetailScreen({
       <div className="flex-1 overflow-hidden">
         {/* 属性页 */}
         {activeMainTab === 'info' && (
-          <div className="h-full px-4 py-2 overflow-y-auto space-y-4">
+          <div className="h-full px-2.5 py-1 overflow-y-auto space-y-2">
             {/* 基础属性 */}
-            <GlowCard className="p-4">
-              <h3 className="text-sm font-medium text-muted-foreground mb-3">基础属性</h3>
-              <div className="grid grid-cols-2 gap-3">
+            <GlowCard className="p-2">
+              <h3 className="text-[10px] font-medium text-muted-foreground mb-2">基础属性</h3>
+              <div className="grid grid-cols-2 gap-1.5">
                 <AttributeRow icon={Heart} label="生命值" value={hero.attributes.hp.toLocaleString()} color="text-destructive" />
                 <AttributeRow icon={Sword} label="攻击力" value={hero.attributes.atk.toLocaleString()} color="text-gold-primary" />
                 <AttributeRow icon={Shield} label="防御力" value={hero.attributes.def.toLocaleString()} color="text-blue-tech" />
@@ -295,33 +295,33 @@ export function HeroDetailScreen({
             </GlowCard>
 
             {/* 技能列表 */}
-            <GlowCard className="p-4">
-              <h3 className="text-sm font-medium text-muted-foreground mb-3">技能</h3>
-              <div className="space-y-3">
+            <GlowCard className="p-2">
+              <h3 className="text-[10px] font-medium text-muted-foreground mb-2">技能</h3>
+              <div className="space-y-1.5">
                 {hero.skills.map((skill) => (
                   <button
                     key={skill.id}
                     onClick={() => setSelectedSkill(skill)}
-                    className="w-full flex items-center gap-3 p-3 bg-muted/30 rounded-xl hover:bg-muted/50 transition-colors"
+                    className="w-full flex items-center gap-2 p-2 bg-muted/30 rounded-lg hover:bg-muted/50 transition-colors"
                   >
                     <div className={cn(
-                      'w-12 h-12 rounded-lg flex items-center justify-center',
+                      'w-9 h-9 rounded-md flex items-center justify-center',
                       skill.type === 'ultimate' ? 'bg-gold-primary/20' : skill.type === 'active' ? 'bg-blue-tech/20' : 'bg-green-500/20'
                     )}>
                       <Zap className={cn(
-                        'w-6 h-6',
+                        'w-4 h-4',
                         skill.type === 'ultimate' ? 'text-gold-primary' : skill.type === 'active' ? 'text-blue-tech' : 'text-green-500'
                       )} />
                     </div>
-                    <div className="flex-1 text-left">
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">{skill.name}</span>
-                        <span className="text-xs text-muted-foreground">Lv.{skill.level}</span>
+                    <div className="flex-1 text-left min-w-0">
+                      <div className="flex items-center gap-1">
+                        <span className="text-[10px] font-medium">{skill.name}</span>
+                        <span className="text-[8px] text-muted-foreground">Lv.{skill.level}</span>
                         {skill.canUpgrade && <RedDot />}
                       </div>
-                      <p className="text-xs text-muted-foreground line-clamp-1">{skill.description}</p>
+                      <p className="text-[9px] text-muted-foreground line-clamp-1">{skill.description}</p>
                     </div>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                    <ChevronRight className="w-3 h-3 text-muted-foreground" />
                   </button>
                 ))}
               </div>
@@ -334,40 +334,40 @@ export function HeroDetailScreen({
               onClick={handleLevelUp}
               disabled={hero.level >= hero.maxLevel}
             >
-              <ArrowUp className="w-4 h-4 mr-2" />
-              {hero.level >= hero.maxLevel ? '已满级' : '升级'}
+              <ArrowUp className="w-3 h-3 mr-1" />
+              <span className="text-xs">{hero.level >= hero.maxLevel ? '已满级' : '升级'}</span>
             </GameButton>
           </div>
         )}
 
         {/* 装备页 */}
         {activeMainTab === 'equip' && (
-          <div className="h-full px-4 py-2 overflow-y-auto">
-            <GlowCard className="p-4">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-medium text-muted-foreground">装备槽位</h3>
-                <button className="text-xs text-primary">一键装备</button>
+          <div className="h-full px-2.5 py-1 overflow-y-auto">
+            <GlowCard className="p-2">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-[10px] font-medium text-muted-foreground">装备槽位</h3>
+                <button className="text-[9px] text-primary">一键装备</button>
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-2">
                 {hero.equipment.map((slot) => (
                   <button
                     key={slot.slot}
                     onClick={() => setShowEquipSelect(slot.slot)}
-                    className="flex flex-col items-center gap-2"
+                    className="flex flex-col items-center gap-1"
                   >
                     <ItemFrame 
                       quality={slot.item?.quality || 1}
                       locked={!slot.equipped}
                     >
                       {slot.equipped && slot.item ? (
-                        <Package className="w-6 h-6 text-foreground" />
+                        <Package className="w-4 h-4 text-foreground" />
                       ) : (
-                        <span className="text-xs text-muted-foreground">+</span>
+                        <span className="text-[10px] text-muted-foreground">+</span>
                       )}
                     </ItemFrame>
-                    <span className="text-xs text-muted-foreground">{slot.slot}</span>
+                    <span className="text-[9px] text-muted-foreground">{slot.slot}</span>
                     {slot.item && (
-                      <span className="text-[10px] text-primary">Lv.{slot.item.level}</span>
+                      <span className="text-[8px] text-primary">Lv.{slot.item.level}</span>
                     )}
                   </button>
                 ))}
@@ -380,47 +380,47 @@ export function HeroDetailScreen({
         {activeMainTab === 'culture' && (
           <div className="h-full flex overflow-hidden">
             {/* 左侧二级页签 */}
-            <div className="w-20 py-2 pl-2 space-y-2">
+            <div className="w-14 py-1 pl-1.5 space-y-1">
               {cultureTabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveCultureTab(tab.id)}
                   className={cn(
-                    'relative w-full flex flex-col items-center gap-1 py-3 rounded-l-xl transition-all',
+                    'relative w-full flex flex-col items-center gap-0.5 py-2 rounded-l-lg transition-all',
                     activeCultureTab === tab.id 
                       ? 'bg-card border-l-2 border-gold-primary' 
                       : 'bg-muted/30 hover:bg-muted/50'
                   )}
                 >
                   <tab.icon className={cn(
-                    'w-5 h-5',
+                    'w-4 h-4',
                     activeCultureTab === tab.id ? 'text-gold-primary' : 'text-muted-foreground'
                   )} />
                   <span className={cn(
-                    'text-[10px]',
+                    'text-[8px]',
                     activeCultureTab === tab.id ? 'text-foreground' : 'text-muted-foreground'
                   )}>
                     {tab.label}
                   </span>
-                  {tab.redDot && <RedDot className="absolute top-1 right-1" />}
+                  {tab.redDot && <RedDot />}
                 </button>
               ))}
             </div>
 
             {/* 右侧内容 */}
-            <div className="flex-1 p-4 overflow-y-auto">
+            <div className="flex-1 p-2 overflow-y-auto">
               {/* 升星 */}
               {activeCultureTab === 'upstar' && (
-                <div className="space-y-4">
-                  <GlowCard className="p-4" glowColor="gold">
-                    <div className="text-center mb-4">
-                      <p className="text-sm text-muted-foreground mb-2">当前星级</p>
-                      <div className="flex justify-center gap-1">
+                <div className="space-y-2">
+                  <GlowCard className="p-2" glowColor="gold">
+                    <div className="text-center mb-2">
+                      <p className="text-[10px] text-muted-foreground mb-1">当前星级</p>
+                      <div className="flex justify-center gap-0.5">
                         {Array.from({ length: hero.maxStar }).map((_, i) => (
                           <Star
                             key={i}
                             className={cn(
-                              'w-6 h-6',
+                              'w-4 h-4',
                               i < hero.star ? 'fill-gold-primary text-gold-primary' : 'fill-muted text-muted'
                             )}
                           />
@@ -428,18 +428,18 @@ export function HeroDetailScreen({
                       </div>
                     </div>
                     
-                    <div className="space-y-3 mb-4">
-                      <p className="text-sm font-medium">升星材料</p>
+                    <div className="space-y-1.5 mb-2">
+                      <p className="text-[10px] font-medium">升星材料</p>
                       {hero.upStarMaterials.map((mat) => (
-                        <div key={mat.id} className="flex items-center justify-between p-2 bg-muted/30 rounded-lg">
-                          <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 rounded bg-card flex items-center justify-center">
-                              <Sparkles className="w-4 h-4 text-gold-primary" />
+                        <div key={mat.id} className="flex items-center justify-between p-1.5 bg-muted/30 rounded-md">
+                          <div className="flex items-center gap-1.5">
+                            <div className="w-6 h-6 rounded bg-card flex items-center justify-center">
+                              <Sparkles className="w-3 h-3 text-gold-primary" />
                             </div>
-                            <span className="text-sm">{mat.name}</span>
+                            <span className="text-[10px]">{mat.name}</span>
                           </div>
                           <span className={cn(
-                            'text-sm font-medium',
+                            'text-[10px] font-medium',
                             mat.current >= mat.needed ? 'text-success' : 'text-destructive'
                           )}>
                             {mat.current}/{mat.needed}
@@ -454,8 +454,8 @@ export function HeroDetailScreen({
                       onClick={handleUpStar}
                       disabled={!canUpStar || hero.star >= hero.maxStar}
                     >
-                      <Star className="w-4 h-4 mr-2" />
-                      {hero.star >= hero.maxStar ? '已满星' : canUpStar ? '升星' : '材料不足'}
+                      <Star className="w-3 h-3 mr-1" />
+                      <span className="text-[10px]">{hero.star >= hero.maxStar ? '已满星' : canUpStar ? '升星' : '材料不足'}</span>
                     </GameButton>
                   </GlowCard>
                 </div>
