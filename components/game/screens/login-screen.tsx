@@ -35,54 +35,54 @@ export function LoginScreen({ onLogin, onServerSelect, selectedServer }: LoginSc
       </div>
       
       {/* 顶部功能按钮 */}
-      <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
-        <button className="p-2 rounded-lg bg-card/80 border border-border backdrop-blur-sm">
-          <FileText className="w-5 h-5 text-muted-foreground" />
+      <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
+        <button className="p-1.5 rounded-md bg-card/80 border border-border backdrop-blur-sm">
+          <FileText className="w-4 h-4 text-muted-foreground" />
         </button>
-        <button className="p-2 rounded-lg bg-card/80 border border-border backdrop-blur-sm">
-          <MessageCircle className="w-5 h-5 text-muted-foreground" />
+        <button className="p-1.5 rounded-md bg-card/80 border border-border backdrop-blur-sm">
+          <MessageCircle className="w-4 h-4 text-muted-foreground" />
         </button>
-        <button className="p-2 rounded-lg bg-card/80 border border-border backdrop-blur-sm">
-          <Settings className="w-5 h-5 text-muted-foreground" />
+        <button className="p-1.5 rounded-md bg-card/80 border border-border backdrop-blur-sm">
+          <Settings className="w-4 h-4 text-muted-foreground" />
         </button>
       </div>
       
       {/* Logo区域 */}
       <div className="flex-1 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-5xl font-bold bg-gradient-to-b from-gold-light to-gold-primary bg-clip-text text-transparent">
+        <div className="text-center relative">
+          <h1 className="text-4xl font-bold bg-gradient-to-b from-gold-light to-gold-primary bg-clip-text text-transparent">
             战术前线
           </h1>
-          <p className="mt-2 text-lg text-muted-foreground tracking-widest">
+          <p className="mt-1.5 text-sm text-muted-foreground tracking-widest">
             TACTICAL FRONT
           </p>
-          <div className="absolute -inset-8 bg-gold-primary/10 blur-2xl rounded-full -z-10" />
+          <div className="absolute -inset-6 bg-gold-primary/10 blur-2xl rounded-full -z-10" />
         </div>
       </div>
       
       {/* 底部操作区 */}
-      <div className="relative px-8 pb-8 space-y-4">
+      <div className="relative px-4 pb-6 space-y-3">
         {/* 选服按钮 */}
         <button
           onClick={() => setShowServerList(true)}
-          className="w-full flex items-center justify-between px-4 py-3 bg-card/80 rounded-lg border border-border backdrop-blur-sm"
+          className="w-full flex items-center justify-between px-3 py-2 bg-card/80 rounded-md border border-border backdrop-blur-sm"
         >
-          <div className="flex items-center gap-3">
-            <Server className="w-5 h-5 text-blue-tech" />
+          <div className="flex items-center gap-2">
+            <Server className="w-4 h-4 text-blue-tech" />
             <div className="text-left">
-              <p className="text-xs text-muted-foreground">当前服务器</p>
-              <p className="text-sm font-medium">{currentServer.name}</p>
+              <p className="text-[10px] text-muted-foreground">当前服务器</p>
+              <p className="text-xs font-medium">{currentServer.name}</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className={`px-2 py-0.5 text-xs rounded ${
+          <div className="flex items-center gap-1.5">
+            <span className={`px-1.5 py-0.5 text-[10px] rounded ${
               currentServer.status === 'hot' ? 'bg-destructive/20 text-destructive' :
               currentServer.status === 'maintenance' ? 'bg-muted text-muted-foreground' :
               'bg-success/20 text-success'
             }`}>
               {currentServer.status === 'hot' ? '火爆' : currentServer.status === 'maintenance' ? '维护' : '正常'}
             </span>
-            <ChevronDown className="w-4 h-4 text-muted-foreground" />
+            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
           </div>
         </button>
         
@@ -96,7 +96,7 @@ export function LoginScreen({ onLogin, onServerSelect, selectedServer }: LoginSc
         >
           {isLoading ? (
             <span className="flex items-center gap-2">
-              <span className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
+              <span className="w-4 h-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
               登录中...
             </span>
           ) : (
@@ -105,11 +105,11 @@ export function LoginScreen({ onLogin, onServerSelect, selectedServer }: LoginSc
         </GameButton>
         
         {/* 协议文案 */}
-        <p className="text-center text-xs text-muted-foreground">
+        <p className="text-center text-[10px] text-muted-foreground">
           登录即表示同意
-          <button className="text-blue-tech mx-1">《用户协议》</button>
+          <button className="text-blue-tech mx-0.5">《用户协议》</button>
           和
-          <button className="text-blue-tech mx-1">《隐私政策》</button>
+          <button className="text-blue-tech mx-0.5">《隐私政策》</button>
         </p>
       </div>
       

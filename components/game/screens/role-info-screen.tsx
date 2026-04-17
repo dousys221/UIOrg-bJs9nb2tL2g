@@ -61,32 +61,32 @@ export function RoleInfoScreen({ player, onBack, onNavigate }: RoleInfoScreenPro
       />
       
       {/* 角色信息概览 */}
-      <div className="px-4 pb-4">
-        <div className="flex items-center gap-4 p-4 bg-card/80 rounded-xl border border-border backdrop-blur-sm">
+      <div className="px-3 pb-3">
+        <div className="flex items-center gap-3 p-3 bg-card/80 rounded-lg border border-border backdrop-blur-sm">
           <div className="relative">
-            <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-gold-secondary to-gold-primary flex items-center justify-center">
-              <User className="w-10 h-10 text-primary-foreground" />
+            <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-gold-secondary to-gold-primary flex items-center justify-center">
+              <User className="w-7 h-7 text-primary-foreground" />
             </div>
-            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-blue-tech rounded text-[10px] font-bold text-white">
+            <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 px-1.5 py-0.5 bg-blue-tech rounded text-[9px] font-bold text-white leading-none">
               Lv.{player.level}
             </span>
           </div>
-          <div className="flex-1">
-            <h2 className="text-lg font-bold">{player.name}</h2>
-            <div className="flex items-center gap-2 mt-1">
-              <Sword className="w-4 h-4 text-gold-primary" />
-              <span className="text-gold-light font-bold">{player.power.toLocaleString()}</span>
+          <div className="flex-1 min-w-0">
+            <h2 className="text-sm font-bold truncate">{player.name}</h2>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <Sword className="w-3.5 h-3.5 text-gold-primary" />
+              <span className="text-sm text-gold-light font-bold">{player.power.toLocaleString()}</span>
             </div>
-            <div className="mt-2">
-              <ProgressBar value={65} max={100} color="blue" />
-              <p className="text-[10px] text-muted-foreground mt-1">经验 65/100</p>
+            <div className="mt-1.5">
+              <ProgressBar value={65} max={100} color="blue" size="sm" />
+              <p className="text-[9px] text-muted-foreground mt-0.5">经验 65/100</p>
             </div>
           </div>
         </div>
       </div>
       
       {/* 主Tab */}
-      <div className="px-4 pb-3">
+      <div className="px-3 pb-2">
         <TabBar tabs={mainTabs} activeTab={activeMainTab} onChange={setActiveMainTab} />
       </div>
       
@@ -95,59 +95,59 @@ export function RoleInfoScreen({ player, onBack, onNavigate }: RoleInfoScreenPro
         {activeMainTab === 'culture' && (
           <>
             {/* 左侧子页签 */}
-            <div className="w-20 py-2 pl-2 space-y-2">
+            <div className="w-16 py-1 pl-1 space-y-1">
               {sideTabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveSideTab(tab.id)}
-                  className={`relative w-full flex flex-col items-center gap-1 py-3 rounded-l-xl transition-all ${
+                  className={`relative w-full flex flex-col items-center gap-0.5 py-2 rounded-l-lg transition-all ${
                     activeSideTab === tab.id 
                       ? 'bg-card border-l-2 border-gold-primary' 
                       : 'bg-muted/30 hover:bg-muted/50'
                   }`}
                 >
-                  <tab.icon className={`w-5 h-5 ${activeSideTab === tab.id ? 'text-gold-primary' : 'text-muted-foreground'}`} />
-                  <span className={`text-[10px] ${activeSideTab === tab.id ? 'text-foreground' : 'text-muted-foreground'}`}>
+                  <tab.icon className={`w-4 h-4 ${activeSideTab === tab.id ? 'text-gold-primary' : 'text-muted-foreground'}`} />
+                  <span className={`text-[9px] ${activeSideTab === tab.id ? 'text-foreground' : 'text-muted-foreground'}`}>
                     {tab.label}
                   </span>
-                  {tab.redDot && <RedDot className="absolute top-1 right-1" />}
+                  {tab.redDot && <RedDot className="absolute top-0.5 right-0.5 w-2 h-2" />}
                 </button>
               ))}
             </div>
             
             {/* 右侧内容 */}
-            <div className="flex-1 p-4 overflow-y-auto">
+            <div className="flex-1 p-3 overflow-y-auto">
               {activeSideTab === 'ability' && (
-                <div className="space-y-4">
-                  <h3 className="text-sm font-medium text-muted-foreground">技能列表</h3>
-                  <div className="space-y-3">
+                <div className="space-y-3">
+                  <h3 className="text-xs font-medium text-muted-foreground">技能列表</h3>
+                  <div className="space-y-2">
                     {mockSkills.map((skill) => (
                       <button
                         key={skill.id}
                         onClick={() => setSelectedSkill(skill)}
-                        className="w-full flex items-center gap-3 p-3 bg-card/80 rounded-xl border border-border hover:border-gold-primary/50 transition-colors"
+                        className="w-full flex items-center gap-2 p-2 bg-card/80 rounded-lg border border-border hover:border-gold-primary/50 transition-colors"
                       >
-                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                        <div className={`w-9 h-9 rounded-md flex items-center justify-center shrink-0 ${
                           skill.type === 'active' ? 'bg-blue-tech/20' : 'bg-gold-primary/20'
                         }`}>
-                          <Zap className={`w-6 h-6 ${skill.type === 'active' ? 'text-blue-tech' : 'text-gold-primary'}`} />
+                          <Zap className={`w-4 h-4 ${skill.type === 'active' ? 'text-blue-tech' : 'text-gold-primary'}`} />
                         </div>
-                        <div className="flex-1 text-left">
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium">{skill.name}</span>
-                            <span className="text-xs text-muted-foreground">Lv.{skill.level}</span>
+                        <div className="flex-1 text-left min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-medium truncate">{skill.name}</span>
+                            <span className="text-[10px] text-muted-foreground shrink-0">Lv.{skill.level}</span>
                           </div>
-                          <p className="text-xs text-muted-foreground line-clamp-1">{skill.description}</p>
+                          <p className="text-[10px] text-muted-foreground line-clamp-1">{skill.description}</p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                        <ChevronRight className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
                       </button>
                     ))}
                   </div>
                   
                   {/* 升级按钮 */}
-                  <GameButton variant="primary" className="w-full">
-                    <div className="flex items-center gap-2">
-                      <ArrowUp className="w-4 h-4" />
+                  <GameButton variant="primary" size="md" className="w-full">
+                    <div className="flex items-center gap-1.5">
+                      <ArrowUp className="w-3.5 h-3.5" />
                       <span>升级技能</span>
                     </div>
                   </GameButton>
@@ -155,12 +155,12 @@ export function RoleInfoScreen({ player, onBack, onNavigate }: RoleInfoScreenPro
               )}
               
               {activeSideTab === 'chip' && (
-                <div className="space-y-4">
-                  <h3 className="text-sm font-medium text-muted-foreground">芯片插槽</h3>
-                  <div className="grid grid-cols-3 gap-3">
+                <div className="space-y-3">
+                  <h3 className="text-xs font-medium text-muted-foreground">芯片插槽</h3>
+                  <div className="grid grid-cols-3 gap-2">
                     {[1, 2, 3, 4, 5, 6].map((slot) => (
                       <ItemFrame key={slot} quality={slot <= 3 ? 4 : 1} locked={slot > 3}>
-                        <CircuitBoard className="w-6 h-6 text-foreground/50" />
+                        <CircuitBoard className="w-5 h-5 text-foreground/50" />
                       </ItemFrame>
                     ))}
                   </div>
@@ -168,11 +168,11 @@ export function RoleInfoScreen({ player, onBack, onNavigate }: RoleInfoScreenPro
               )}
               
               {activeSideTab === 'flag' && (
-                <div className="space-y-4">
-                  <h3 className="text-sm font-medium text-muted-foreground">旗帜系统</h3>
-                  <div className="p-6 bg-card/50 rounded-xl border border-border text-center">
-                    <Flag className="w-12 h-12 mx-auto text-muted-foreground/50" />
-                    <p className="mt-3 text-sm text-muted-foreground">等级达到60级解锁</p>
+                <div className="space-y-3">
+                  <h3 className="text-xs font-medium text-muted-foreground">旗帜系统</h3>
+                  <div className="p-4 bg-card/50 rounded-lg border border-border text-center">
+                    <Flag className="w-10 h-10 mx-auto text-muted-foreground/50" />
+                    <p className="mt-2 text-xs text-muted-foreground">等级达到60级解锁</p>
                   </div>
                 </div>
               )}
@@ -181,14 +181,14 @@ export function RoleInfoScreen({ player, onBack, onNavigate }: RoleInfoScreenPro
         )}
         
         {activeMainTab === 'equip' && (
-          <div className="flex-1 p-4">
-            <div className="grid grid-cols-3 gap-3">
+          <div className="flex-1 p-3">
+            <div className="grid grid-cols-3 gap-2">
               {['武器', '护甲', '头盔', '护腿', '靴子', '饰品'].map((slot, i) => (
-                <div key={slot} className="flex flex-col items-center gap-2">
+                <div key={slot} className="flex flex-col items-center gap-1">
                   <ItemFrame quality={i < 3 ? 5 : 4}>
-                    <Shield className="w-6 h-6 text-foreground/50" />
+                    <Shield className="w-5 h-5 text-foreground/50" />
                   </ItemFrame>
-                  <span className="text-xs text-muted-foreground">{slot}</span>
+                  <span className="text-[10px] text-muted-foreground">{slot}</span>
                 </div>
               ))}
             </div>
@@ -196,14 +196,14 @@ export function RoleInfoScreen({ player, onBack, onNavigate }: RoleInfoScreenPro
         )}
         
         {activeMainTab === 'info' && (
-          <div className="flex-1 p-4 space-y-3">
+          <div className="flex-1 p-3 space-y-2">
             {attributes.map((attr) => (
-              <div key={attr.label} className="flex items-center justify-between p-3 bg-card/80 rounded-xl border border-border">
-                <div className="flex items-center gap-3">
-                  <attr.icon className={`w-5 h-5 ${attr.color}`} />
-                  <span className="text-sm">{attr.label}</span>
+              <div key={attr.label} className="flex items-center justify-between p-2 bg-card/80 rounded-lg border border-border">
+                <div className="flex items-center gap-2">
+                  <attr.icon className={`w-4 h-4 ${attr.color}`} />
+                  <span className="text-xs">{attr.label}</span>
                 </div>
-                <span className="font-bold text-gold-light">{typeof attr.value === 'number' ? attr.value.toLocaleString() : attr.value}</span>
+                <span className="text-sm font-bold text-gold-light">{typeof attr.value === 'number' ? attr.value.toLocaleString() : attr.value}</span>
               </div>
             ))}
           </div>

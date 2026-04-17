@@ -62,10 +62,10 @@ export function LevelUpPopup({
 
       {/* Particle Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-primary rounded-full animate-ping"
+            className="absolute w-1.5 h-1.5 bg-primary rounded-full animate-ping"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,

@@ -38,44 +38,44 @@ export function SettlementScreen({ result, onContinue, onShowStats }: Settlement
       </div>
       
       {/* 结果标题 */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center pt-12">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center pt-8">
         {result.win ? (
           <>
             <div className="relative">
-              <Trophy className="w-24 h-24 text-gold-primary animate-bounce" />
-              <div className="absolute -inset-4 bg-gold-primary/20 blur-2xl rounded-full -z-10" />
+              <Trophy className="w-16 h-16 text-gold-primary animate-bounce" />
+              <div className="absolute -inset-3 bg-gold-primary/20 blur-2xl rounded-full -z-10" />
             </div>
-            <h1 className="mt-6 text-4xl font-bold bg-gradient-to-b from-gold-light to-gold-primary bg-clip-text text-transparent">
+            <h1 className="mt-4 text-2xl font-bold bg-gradient-to-b from-gold-light to-gold-primary bg-clip-text text-transparent">
               战斗胜利
             </h1>
           </>
         ) : (
           <>
             <div className="relative">
-              <Skull className="w-24 h-24 text-destructive animate-pulse" />
-              <div className="absolute -inset-4 bg-destructive/20 blur-2xl rounded-full -z-10" />
+              <Skull className="w-16 h-16 text-destructive animate-pulse" />
+              <div className="absolute -inset-3 bg-destructive/20 blur-2xl rounded-full -z-10" />
             </div>
-            <h1 className="mt-6 text-4xl font-bold text-destructive">
+            <h1 className="mt-4 text-2xl font-bold text-destructive">
               战斗失败
             </h1>
           </>
         )}
         
         {/* 战斗统计概览 */}
-        <div className="mt-8 flex items-center gap-6">
+        <div className="mt-6 flex items-center gap-4">
           <div className="text-center">
-            <p className="text-2xl font-bold text-gold-light">{result.damage.toLocaleString()}</p>
-            <p className="text-xs text-muted-foreground">总伤害</p>
+            <p className="text-lg font-bold text-gold-light">{result.damage.toLocaleString()}</p>
+            <p className="text-[10px] text-muted-foreground">总伤害</p>
           </div>
-          <div className="w-px h-10 bg-border" />
+          <div className="w-px h-8 bg-border" />
           <div className="text-center">
-            <p className="text-2xl font-bold text-blue-tech">+{result.exp.toLocaleString()}</p>
-            <p className="text-xs text-muted-foreground">经验值</p>
+            <p className="text-lg font-bold text-blue-tech">+{result.exp.toLocaleString()}</p>
+            <p className="text-[10px] text-muted-foreground">经验值</p>
           </div>
-          <div className="w-px h-10 bg-border" />
+          <div className="w-px h-8 bg-border" />
           <div className="text-center">
-            <p className="text-2xl font-bold text-success">+{result.gold.toLocaleString()}</p>
-            <p className="text-xs text-muted-foreground">金币</p>
+            <p className="text-lg font-bold text-success">+{result.gold.toLocaleString()}</p>
+            <p className="text-[10px] text-muted-foreground">金币</p>
           </div>
         </div>
       </div>

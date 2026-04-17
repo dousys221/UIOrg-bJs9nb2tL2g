@@ -60,53 +60,53 @@ export function GuildMainCityScreen({
       </div>
 
       {/* 顶部栏 */}
-      <div className="relative z-10 flex items-center justify-between px-4 py-3">
+      <div className="relative z-10 flex items-center justify-between px-3 py-2">
         <button
           onClick={onBack}
-          className="flex items-center justify-center w-10 h-10 rounded-lg bg-card/80 border border-border"
+          className="flex items-center justify-center w-9 h-9 rounded-md bg-card/80 border border-border"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-lg font-bold">公会</h1>
-        <button className="flex items-center justify-center w-10 h-10 rounded-lg bg-card/80 border border-border">
-          <Settings className="w-5 h-5" />
+        <h1 className="text-base font-bold">公会</h1>
+        <button className="flex items-center justify-center w-9 h-9 rounded-md bg-card/80 border border-border">
+          <Settings className="w-4 h-4" />
         </button>
       </div>
 
       {/* 公会信息卡 */}
-      <div className="relative z-10 px-4 mt-4">
-        <GlowCard className="p-4">
-          <div className="flex items-start justify-between mb-3">
-            <div className="flex items-center gap-3">
-              <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center border border-primary/30">
-                <Crown className="w-7 h-7 text-primary" />
+      <div className="relative z-10 px-3 mt-2">
+        <GlowCard className="p-3">
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center border border-primary/30">
+                <Crown className="w-5 h-5 text-primary" />
               </div>
-              <div>
-                <h2 className="text-lg font-bold">{guildInfo.name}</h2>
-                <p className="text-sm text-muted-foreground">
+              <div className="min-w-0">
+                <h2 className="text-sm font-bold truncate">{guildInfo.name}</h2>
+                <p className="text-[10px] text-muted-foreground">
                   会长: {guildInfo.master}
                 </p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground">公会等级</p>
-              <p className="text-xl font-bold text-primary">Lv.{guildInfo.level}</p>
+            <div className="text-right shrink-0">
+              <p className="text-[10px] text-muted-foreground">公会等级</p>
+              <p className="text-sm font-bold text-primary">Lv.{guildInfo.level}</p>
             </div>
           </div>
 
           {/* 经验条 */}
-          <div className="mb-3">
-            <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+          <div className="mb-2">
+            <div className="flex items-center justify-between text-[10px] text-muted-foreground mb-0.5">
               <span>公会经验</span>
               <span>{guildInfo.exp}/{guildInfo.maxExp}</span>
             </div>
-            <ProgressBar value={guildInfo.exp} max={guildInfo.maxExp} color="gold" />
+            <ProgressBar value={guildInfo.exp} max={guildInfo.maxExp} color="gold" size="sm" />
           </div>
 
           {/* 成员数 */}
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Users className="w-4 h-4" />
+          <div className="flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <Users className="w-3.5 h-3.5" />
               <span>成员</span>
             </div>
             <span className="font-medium">
@@ -117,36 +117,36 @@ export function GuildMainCityScreen({
       </div>
 
       {/* 公会宣言 */}
-      <div className="relative z-10 px-4 mt-4">
-        <GlowCard className="p-3" glowColor="blue">
-          <p className="text-sm text-muted-foreground">
+      <div className="relative z-10 px-3 mt-3">
+        <GlowCard className="p-2.5" glowColor="blue">
+          <p className="text-[10px] text-muted-foreground">
             📢 {guildInfo.declaration}
           </p>
         </GlowCard>
       </div>
 
       {/* 功能入口网格 */}
-      <div className="relative z-10 px-4 mt-6">
-        <div className="grid grid-cols-4 gap-3">
+      <div className="relative z-10 px-3 mt-3">
+        <div className="grid grid-cols-4 gap-2">
           {menuItems.map((item, idx) => (
             <button
               key={idx}
               onClick={item.onClick}
-              className="relative flex flex-col items-center gap-2 p-3 rounded-xl bg-card/50 border border-border hover:bg-card hover:border-primary/30 transition-all"
+              className="relative flex flex-col items-center gap-1 p-2 rounded-lg bg-card/50 border border-border hover:bg-card hover:border-primary/30 transition-all"
             >
-              {item.redDot && <RedDot className="absolute -top-1 -right-1" />}
-              <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center">
-                <item.icon className="w-5 h-5 text-primary" />
+              {item.redDot && <RedDot className="absolute -top-0.5 -right-0.5 w-2 h-2" />}
+              <div className="w-8 h-8 rounded-md bg-primary/20 flex items-center justify-center">
+                <item.icon className="w-4 h-4 text-primary" />
               </div>
-              <span className="text-xs text-muted-foreground">{item.label}</span>
+              <span className="text-[9px] text-muted-foreground">{item.label}</span>
             </button>
           ))}
         </div>
       </div>
 
       {/* 公会成员列表预览 */}
-      <div className="relative z-10 px-4 mt-6">
-        <div className="flex items-center justify-between mb-3">
+      <div className="relative z-10 px-3 mt-4">
+        <div className="flex items-center justify-between mb-2">
           <h3 className="font-medium">在线成员</h3>
           <span className="text-sm text-muted-foreground">查看全部 →</span>
         </div>

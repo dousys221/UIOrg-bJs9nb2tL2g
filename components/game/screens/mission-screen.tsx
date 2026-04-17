@@ -53,7 +53,7 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
       />
       
       {/* Tab切换 */}
-      <div className="px-4 pb-3">
+      <div className="px-3 pb-2">
         <TabBar 
           tabs={missionTabs} 
           activeTab={activeTab} 
@@ -63,19 +63,19 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
       
       {/* 日常活跃度奖励 */}
       {activeTab === 'daily' && (
-        <div className="px-4 pb-4">
-          <div className="p-4 bg-card/80 rounded-xl border border-border backdrop-blur-sm">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium">今日活跃度</span>
-              <span className="text-sm">
+        <div className="px-3 pb-3">
+          <div className="p-3 bg-card/80 rounded-lg border border-border backdrop-blur-sm">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-medium">今日活跃度</span>
+              <span className="text-xs">
                 <span className="text-gold-light font-bold">{currentPoints}</span>
                 <span className="text-muted-foreground">/100</span>
               </span>
             </div>
             
             {/* 进度条 */}
-            <div className="relative mb-4">
-              <ProgressBar value={currentPoints} max={100} color="gold" />
+            <div className="relative mb-3">
+              <ProgressBar value={currentPoints} max={100} color="gold" size="sm" />
               {/* 节点标记 */}
               <div className="absolute top-1/2 left-0 right-0 flex justify-between -translate-y-1/2">
                 {dailyBoxes.map((box) => (
@@ -84,7 +84,7 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
                     className="relative"
                     style={{ left: `${box.points - 2}%`, position: 'absolute', transform: 'translateX(-50%)' }}
                   >
-                    <div className={`w-1 h-3 rounded-full ${
+                    <div className={`w-0.5 h-2 rounded-full ${
                       currentPoints >= box.points ? 'bg-gold-primary' : 'bg-muted'
                     }`} />
                   </div>
@@ -97,9 +97,9 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
               {dailyBoxes.map((box) => (
                 <button
                   key={box.id}
-                  className="relative flex flex-col items-center gap-1"
+                  className="relative flex flex-col items-center gap-0.5"
                 >
-                  <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                  <div className={`w-10 h-10 rounded-md flex items-center justify-center ${
                     box.claimed 
                       ? 'bg-muted' 
                       : currentPoints >= box.points 
@@ -107,16 +107,16 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
                         : 'bg-muted/50'
                   }`}>
                     {box.claimed ? (
-                      <Check className="w-5 h-5 text-success" />
+                      <Check className="w-4 h-4 text-success" />
                     ) : currentPoints >= box.points ? (
-                      <Gift className="w-6 h-6 text-gold-primary" />
+                      <Gift className="w-5 h-5 text-gold-primary" />
                     ) : (
-                      <Gift className="w-6 h-6 text-muted-foreground" />
+                      <Gift className="w-5 h-5 text-muted-foreground" />
                     )}
                   </div>
-                  <span className="text-[10px] text-muted-foreground">{box.points}</span>
+                  <span className="text-[9px] text-muted-foreground">{box.points}</span>
                   {currentPoints >= box.points && !box.claimed && (
-                    <RedDot className="absolute -top-1 -right-1" />
+                    <RedDot className="absolute -top-0.5 -right-0.5 w-2 h-2" />
                   )}
                 </button>
               ))}
@@ -126,9 +126,10 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
       )}
       
       {/* 一键领取 */}
-      <div className="px-4 pb-3">
+      <div className="px-3 pb-2">
         <GameButton 
           variant="primary" 
+          size="sm"
           className="w-full"
           disabled={!missions.some(m => m.status === 'completed')}
         >
@@ -137,31 +138,31 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
       </div>
       
       {/* 任务列表 */}
-      <div className="flex-1 px-4 overflow-y-auto">
-        <div className="space-y-3 pb-4">
+      <div className="flex-1 px-3 overflow-y-auto">
+        <div className="space-y-2 pb-3">
           {missions.map((mission) => (
             <div
               key={mission.id}
-              className="p-4 bg-card/80 rounded-xl border border-border backdrop-blur-sm"
+              className="p-2.5 bg-card/80 rounded-lg border border-border backdrop-blur-sm"
             >
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h4 className="font-medium">{mission.title}</h4>
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <h4 className="text-xs font-medium truncate">{mission.title}</h4>
                     {mission.status === 'claimed' && (
-                      <span className="px-2 py-0.5 bg-success/20 text-success rounded text-[10px]">
-                        已完成
+                      <span className="px-1.5 py-0.5 bg-success/20 text-success rounded text-[9px] shrink-0">
+                        完成
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1">{mission.description}</p>
+                  <p className="text-[10px] text-muted-foreground mt-0.5">{mission.description}</p>
                   
                   {/* 进度 */}
                   {mission.status !== 'claimed' && (
-                    <div className="mt-3">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs text-muted-foreground">进度</span>
-                        <span className="text-xs">
+                    <div className="mt-1.5">
+                      <div className="flex items-center justify-between mb-0.5">
+                        <span className="text-[10px] text-muted-foreground">进度</span>
+                        <span className="text-[10px]">
                           <span className={mission.progress >= mission.maxProgress ? 'text-success' : 'text-gold-light'}>
                             {mission.progress}
                           </span>
@@ -172,6 +173,7 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
                         value={mission.progress} 
                         max={mission.maxProgress} 
                         color={mission.progress >= mission.maxProgress ? 'green' : 'gold'}
+                        size="sm"
                       />
                     </div>
                   )}
@@ -185,7 +187,7 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
                       size="sm"
                       onClick={() => onJump(mission.jumpTo!)}
                     >
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-0.5">
                         <span>前往</span>
                         <ChevronRight className="w-3 h-3" />
                       </div>
@@ -197,8 +199,8 @@ export function MissionScreen({ player, onBack, onJump }: MissionScreenProps) {
                     </GameButton>
                   )}
                   {mission.status === 'claimed' && (
-                    <div className="w-16 h-8 flex items-center justify-center">
-                      <Check className="w-5 h-5 text-success" />
+                    <div className="flex items-center justify-center w-10 h-10">
+                      <Check className="w-4 h-4 text-success" />
                     </div>
                   )}
                 </div>

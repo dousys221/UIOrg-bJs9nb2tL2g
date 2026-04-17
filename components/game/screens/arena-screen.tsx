@@ -43,43 +43,45 @@ export function ArenaTypeScreen({ onBack, onSelectArena }: ArenaTypeScreenProps)
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-      <ResourceBar showBack onBack={onBack} gold={12580} diamond={320} />
+    <div className="relative h-full w-full bg-gradient-to-b from-background via-card/30 to-background overflow-hidden flex flex-col">
+      <div className="px-3 py-2">
+        <ResourceBar showBack onBack={onBack} gold={12580} diamond={320} />
+      </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-center mb-2 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
+      <div className="flex-1 px-3 py-4 overflow-y-auto">
+        <h1 className="text-xl font-bold text-center mb-1 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
           竞技场
         </h1>
-        <p className="text-center text-muted-foreground mb-8">选择竞技模式</p>
+        <p className="text-center text-xs text-muted-foreground mb-4">选择竞技模式</p>
 
-        <div className="grid gap-6 max-w-2xl mx-auto">
+        <div className="space-y-3">
           {arenaTypes.map((arena) => (
             <GlowCard
               key={arena.id}
-              className="cursor-pointer hover:scale-102 transition-transform"
+              className="cursor-pointer hover:scale-[1.01] transition-transform"
               onClick={() => onSelectArena(arena.id)}
             >
-              <div className="flex items-center gap-4 p-6">
+              <div className="flex items-center gap-3 p-3">
                 {/* 图标 */}
                 <div className={cn(
-                  "w-16 h-16 rounded-xl flex items-center justify-center relative",
+                  "w-12 h-12 rounded-lg flex items-center justify-center relative shrink-0",
                   `bg-gradient-to-br ${arena.color}`
                 )}>
-                  <arena.icon className="w-8 h-8 text-white" />
+                  <arena.icon className="w-6 h-6 text-white" />
                   {arena.redDot && (
-                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+                    <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
                   )}
                 </div>
 
                 {/* 信息 */}
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-white mb-1">{arena.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-1">{arena.desc}</p>
-                  <p className="text-xs text-accent">{arena.reward}</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-bold text-white mb-0.5">{arena.title}</h3>
+                  <p className="text-xs text-muted-foreground mb-0.5 truncate">{arena.desc}</p>
+                  <p className="text-[10px] text-accent">{arena.reward}</p>
                 </div>
 
                 {/* 箭头 */}
-                <ChevronLeft className="w-6 h-6 text-muted-foreground rotate-180" />
+                <ChevronLeft className="w-4 h-4 text-muted-foreground rotate-180 shrink-0" />
               </div>
             </GlowCard>
           ))}
@@ -109,45 +111,47 @@ export function ArenaMainScreen({ arenaType, onBack, onStartBattle, onShowRecord
   const info = arenaInfo[arenaType];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-      <ResourceBar showBack onBack={onBack} gold={12580} diamond={320} />
+    <div className="relative h-full w-full bg-gradient-to-b from-background via-card/30 to-background overflow-hidden flex flex-col">
+      <div className="px-3 py-2">
+        <ResourceBar showBack onBack={onBack} gold={12580} diamond={320} />
+      </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-center mb-6 text-white">{info.title}</h1>
+      <div className="flex-1 px-3 py-4 overflow-y-auto">
+        <h1 className="text-lg font-bold text-center mb-4 text-white">{info.title}</h1>
 
         {/* 竞技信息 */}
-        <GlowCard className="mb-6">
-          <div className="p-6">
-            <div className="grid grid-cols-3 gap-4 text-center">
+        <GlowCard className="mb-4">
+          <div className="p-3">
+            <div className="grid grid-cols-3 gap-2 text-center">
               <div>
-                <p className="text-muted-foreground text-sm mb-1">
+                <p className="text-muted-foreground text-[10px] mb-0.5">
                   {arenaType === 'rank' ? '当前排名' : arenaType === 'match' ? '荣誉点' : '贡献值'}
                 </p>
-                <p className="text-2xl font-bold text-accent">
+                <p className="text-lg font-bold text-accent">
                   {arenaType === 'rank' ? info.rank : arenaType === 'match' ? info.points : info.contribution}
                 </p>
               </div>
               <div>
-                <p className="text-muted-foreground text-sm mb-1">胜场</p>
-                <p className="text-2xl font-bold text-green-400">{info.wins}</p>
+                <p className="text-muted-foreground text-[10px] mb-0.5">胜场</p>
+                <p className="text-lg font-bold text-green-400">{info.wins}</p>
               </div>
               <div>
-                <p className="text-muted-foreground text-sm mb-1">负场</p>
-                <p className="text-2xl font-bold text-red-400">{info.losses}</p>
+                <p className="text-muted-foreground text-[10px] mb-0.5">负场</p>
+                <p className="text-lg font-bold text-red-400">{info.losses}</p>
               </div>
             </div>
           </div>
         </GlowCard>
 
         {/* 挑战券 */}
-        <div className="flex items-center justify-center gap-2 mb-6">
-          <Target className="w-5 h-5 text-accent" />
-          <span className="text-white">挑战券: {tickets}/10</span>
-          <button className="text-accent text-sm hover:underline">购买</button>
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <Target className="w-4 h-4 text-accent" />
+          <span className="text-sm text-white">挑战券: {tickets}/10</span>
+          <button className="text-accent text-xs hover:underline">购买</button>
         </div>
 
         {/* 操作按钮 */}
-        <div className="space-y-4 max-w-md mx-auto">
+        <div className="space-y-3">
           <HexButton
             variant="primary"
             size="lg"
@@ -160,7 +164,7 @@ export function ArenaMainScreen({ arenaType, onBack, onStartBattle, onShowRecord
 
           <HexButton
             variant="secondary"
-            size="lg"
+            size="md"
             className="w-full"
             onClick={onShowRecord}
           >

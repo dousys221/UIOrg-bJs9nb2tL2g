@@ -68,16 +68,16 @@ export function BattleScreen({ onExit, onBattleEnd }: BattleScreenProps) {
       </div>
       
       {/* 顶部战斗信息 */}
-      <div className="relative z-10 px-4 pt-4 pb-2 space-y-3">
+      <div className="relative z-10 px-3 pt-3 pb-1.5 space-y-2">
         {/* 敌方信息 */}
-        <div className="flex items-center gap-3 p-3 bg-card/80 rounded-xl border border-border backdrop-blur-sm">
-          <div className="w-12 h-12 rounded-lg bg-destructive/20 flex items-center justify-center">
-            <Shield className="w-6 h-6 text-destructive" />
+        <div className="flex items-center gap-2 p-2 bg-card/80 rounded-lg border border-border backdrop-blur-sm">
+          <div className="w-10 h-10 rounded-md bg-destructive/20 flex items-center justify-center">
+            <Shield className="w-4.5 h-4.5 text-destructive" />
           </div>
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-sm font-bold text-destructive">敌方单位</span>
-              <span className="text-xs text-muted-foreground">Lv.60</span>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between mb-0.5">
+              <span className="text-xs font-bold text-destructive">敌方单位</span>
+              <span className="text-[10px] text-muted-foreground">Lv.60</span>
             </div>
             <ProgressBar value={enemyHp} max={100} color="red" />
           </div>

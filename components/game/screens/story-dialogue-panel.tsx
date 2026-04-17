@@ -69,12 +69,15 @@ const mockDialogues: DialogueData[] = [
 ]
 
 export function StoryDialoguePanel({ 
-  dialogues = mockDialogues, 
+  dialogues: propsDialogues, 
   initialIndex = 0,
   onComplete, 
   onSkip,
   jumpId
 }: StoryDialoguePanelProps) {
+  // 如果传入空数组或undefined，使用默认的mockDialogues
+  const dialogues = propsDialogues && propsDialogues.length > 0 ? propsDialogues : mockDialogues
+  
   const [currentIndex, setCurrentIndex] = useState(initialIndex)
   const [displayedText, setDisplayedText] = useState("")
   const [isTyping, setIsTyping] = useState(true)

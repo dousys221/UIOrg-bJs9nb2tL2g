@@ -169,20 +169,64 @@
   }
 }
 
-/* 移动端游戏UI容器 - 9:16竖屏 */
+/* 移动端游戏UI容器 - 9:16竖屏 (1080x1920设计分辨率) */
 .game-container {
   width: 100%;
-  max-width: 540px;
+  max-width: 540px; /* 1080/2 = 540px (2x设计稿) */
   height: 100vh;
-  max-height: 960px;
+  max-height: 960px; /* 1920/2 = 960px (2x设计稿) */
   margin: 0 auto;
   position: relative;
   overflow: hidden;
+  font-size: 14px; /* 基准字号 */
 }
+
+/* 手游UI按钮和模块缩放控制 */
+.game-container button {
+  touch-action: manipulation;
+}
+
+/* 标准化手游UI间距和尺寸 */
+.game-container .btn-game-primary {
+  min-height: 44px;
+  max-height: 56px;
+}
+
+.game-container .panel-compact {
+  padding: 12px;
+}
+
+.game-container .icon-sm { width: 20px; height: 20px; }
+.game-container .icon-md { width: 24px; height: 24px; }
+.game-container .icon-lg { width: 32px; height: 32px; }
 
 @media (min-width: 768px) {
   .game-container {
     border-radius: 24px;
     box-shadow: 0 0 60px oklch(0 0 0 / 0.5);
   }
+}
+
+/* 手游UI组件尺寸规范 */
+.game-item-slot {
+  width: 56px;
+  height: 56px;
+}
+
+.game-item-slot-lg {
+  width: 64px;
+  height: 64px;
+}
+
+/* 底部导航栏高度控制 */
+.game-bottom-nav {
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* 弹窗尺寸控制 */
+.game-popup {
+  max-width: 90%;
+  max-height: 80vh;
 }

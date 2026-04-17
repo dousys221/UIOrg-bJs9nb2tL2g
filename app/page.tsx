@@ -119,9 +119,13 @@ export default function GameApp() {
     if (needsCreateRole) {
       setCurrentScreen('create-role')
     } else {
+      // 如果不需要创建角色但player为空，设置默认player
+      if (!player) {
+        setPlayer(mockPlayer)
+      }
       setCurrentScreen('main')
     }
-  }, [needsCreateRole])
+  }, [needsCreateRole, player])
   
   // 创建角色
   const handleCreateRole = useCallback((name: string, gender: 'male' | 'female') => {
@@ -151,8 +155,12 @@ export default function GameApp() {
   // 背景叙事完成
   const handleBackgroundInfoComplete = useCallback(() => {
     setIsNewPlayer(false)
+    // 确保player已设置
+    if (!player) {
+      setPlayer(mockPlayer)
+    }
     setCurrentScreen('main')
-  }, [])
+  }, [player])
   
   // 导航
   const handleNavigate = useCallback((screen: GameScreen) => {

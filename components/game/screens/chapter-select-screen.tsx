@@ -131,28 +131,28 @@ export function ChapterSelectScreen({
       </div>
 
       {/* Header */}
-      <div className="relative z-20 flex items-center justify-between p-4 bg-gradient-to-b from-background/90 to-transparent">
+      <div className="relative z-20 flex items-center justify-between px-3 py-2 bg-gradient-to-b from-background/90 to-transparent">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+          className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
         >
-          <ChevronLeft className="w-6 h-6" />
-          <span>返回</span>
+          <ChevronLeft className="w-5 h-5" />
+          <span className="text-sm">返回</span>
         </button>
 
         {/* Difficulty Title */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <img
             src={`/difficulty-${currentDifficulty}.png`}
             alt=""
-            className="w-8 h-8 object-contain"
+            className="w-6 h-6 object-contain"
             onError={(e) => {
               e.currentTarget.style.display = "none";
             }}
           />
           <span
             className={cn(
-              "text-lg font-bold",
+              "text-sm font-bold",
               DIFFICULTY_COLORS[currentDifficulty - 1]
             )}
           >
@@ -160,18 +160,18 @@ export function ChapterSelectScreen({
           </span>
         </div>
 
-        <div className="w-16" />
+        <div className="w-12" />
       </div>
 
       {/* Difficulty Tabs */}
-      <div className="relative z-10 px-4 mb-4">
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+      <div className="relative z-10 px-3 mb-3">
+        <div className="flex gap-1.5 overflow-x-auto pb-1.5 scrollbar-hide">
           {DIFFICULTY_NAMES.map((name, idx) => (
             <button
               key={name}
               onClick={() => setCurrentDifficulty(idx + 1)}
               className={cn(
-                "px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all border",
+                "px-3 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-all border",
                 currentDifficulty === idx + 1
                   ? "bg-primary/20 border-primary/50 text-primary"
                   : idx + 1 <= 2

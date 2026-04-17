@@ -111,18 +111,18 @@ export function SingleRecruitPanel({
       </div>
 
       {/* 操作按钮 */}
-      <div className="absolute bottom-8 left-0 right-0 px-6">
-        <div className="flex flex-col gap-3 max-w-xs mx-auto">
-          <HexButton variant="primary" className="w-full" onClick={onAgain}>
-            <Sparkles className="w-4 h-4 mr-2" />
+      <div className="absolute bottom-6 left-0 right-0 px-4">
+        <div className="flex flex-col gap-2 max-w-xs mx-auto">
+          <HexButton variant="primary" size="md" className="w-full" onClick={onAgain}>
+            <Sparkles className="w-3.5 h-3.5 mr-1.5" />
             再抽一次
           </HexButton>
-          <HexButton variant="secondary" className="w-full" onClick={onTenRecruit}>
+          <HexButton variant="secondary" size="md" className="w-full" onClick={onTenRecruit}>
             十连抽
           </HexButton>
           <button
             onClick={onClose}
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
             关闭
           </button>
@@ -166,12 +166,12 @@ export function TenRecruitPanel({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
       <div className="w-[95%] max-w-2xl max-h-[90vh] overflow-hidden">
         {/* 标题 */}
-        <div className="text-center mb-4">
-          <h2 className="text-xl font-bold">抽卡结果</h2>
+        <div className="text-center mb-3">
+          <h2 className="text-lg font-bold">抽卡结果</h2>
         </div>
 
         {/* 卡片网格 */}
-        <div className="grid grid-cols-5 gap-2 mb-6">
+        <div className="grid grid-cols-5 gap-1.5 mb-4">
           {heroes.map((hero, idx) => (
             <div
               key={idx}
@@ -200,12 +200,12 @@ export function TenRecruitPanel({
         </div>
 
         {/* 操作按钮 */}
-        <div className="flex gap-3 justify-center">
-          <HexButton variant="primary" onClick={onAgain}>
-            <Sparkles className="w-4 h-4 mr-2" />
+        <div className="flex gap-2 justify-center">
+          <HexButton variant="primary" size="md" onClick={onAgain}>
+            <Sparkles className="w-3.5 h-3.5 mr-1.5" />
             再来十连
           </HexButton>
-          <HexButton variant="secondary" onClick={onClose}>
+          <HexButton variant="secondary" size="md" onClick={onClose}>
             关闭
           </HexButton>
         </div>

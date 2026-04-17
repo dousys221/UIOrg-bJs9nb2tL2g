@@ -61,19 +61,19 @@ export function SettingScreen({ player, onBack, onLogout }: SettingScreenProps) 
       
       <div className="flex-1 flex overflow-hidden">
         {/* 左侧Tab */}
-        <div className="w-20 py-2 pl-2 space-y-2">
+        <div className="w-16 py-1 pl-1 space-y-1">
           {settingTabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`w-full flex flex-col items-center gap-1 py-3 rounded-l-xl transition-all ${
+              className={`w-full flex flex-col items-center gap-0.5 py-2 rounded-l-lg transition-all ${
                 activeTab === tab.id 
                   ? 'bg-card border-l-2 border-gold-primary' 
                   : 'bg-muted/30 hover:bg-muted/50'
               }`}
             >
-              <tab.icon className={`w-5 h-5 ${activeTab === tab.id ? 'text-gold-primary' : 'text-muted-foreground'}`} />
-              <span className={`text-[10px] ${activeTab === tab.id ? 'text-foreground' : 'text-muted-foreground'}`}>
+              <tab.icon className={`w-4 h-4 ${activeTab === tab.id ? 'text-gold-primary' : 'text-muted-foreground'}`} />
+              <span className={`text-[9px] ${activeTab === tab.id ? 'text-foreground' : 'text-muted-foreground'}`}>
                 {tab.label}
               </span>
             </button>
@@ -81,28 +81,28 @@ export function SettingScreen({ player, onBack, onLogout }: SettingScreenProps) 
         </div>
         
         {/* 右侧内容 */}
-        <div className="flex-1 p-4 overflow-y-auto">
+        <div className="flex-1 p-3 overflow-y-auto">
           {activeTab === 'account' && (
-            <div className="space-y-4">
+            <div className="space-y-3">
               {/* 玩家信息 */}
-              <div className="p-4 bg-card/80 rounded-xl border border-border backdrop-blur-sm">
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-gold-secondary to-gold-primary flex items-center justify-center">
-                    <User className="w-8 h-8 text-primary-foreground" />
+              <div className="p-3 bg-card/80 rounded-lg border border-border backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-secondary to-gold-primary flex items-center justify-center">
+                    <User className="w-6 h-6 text-primary-foreground" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold">{player.name}</h3>
-                    <p className="text-sm text-muted-foreground">UID: {player.id}</p>
-                    <p className="text-sm text-muted-foreground">公会: {player.guildName || '未加入'}</p>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-sm font-bold truncate">{player.name}</h3>
+                    <p className="text-[10px] text-muted-foreground">UID: {player.id}</p>
+                    <p className="text-[10px] text-muted-foreground truncate">公会: {player.guildName || '未加入'}</p>
                   </div>
-                  <button className="p-2 rounded-lg bg-muted">
-                    <Palette className="w-5 h-5 text-muted-foreground" />
+                  <button className="p-1.5 rounded-md bg-muted shrink-0">
+                    <Palette className="w-4 h-4 text-muted-foreground" />
                   </button>
                 </div>
               </div>
               
               {/* 功能按钮 */}
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <SettingButton 
                   icon={Key} 
                   label="兑换码" 
@@ -123,18 +123,19 @@ export function SettingScreen({ player, onBack, onLogout }: SettingScreenProps) 
               {/* 退出登录 */}
               <GameButton 
                 variant="danger" 
-                className="w-full mt-6"
+                size="md"
+                className="w-full mt-4"
                 onClick={onLogout}
               >
-                <LogOut className="w-4 h-4 mr-2" />
+                <LogOut className="w-3.5 h-3.5 mr-1.5" />
                 切换账号
               </GameButton>
             </div>
           )}
           
           {activeTab === 'audio' && (
-            <div className="space-y-6">
-              <div className="p-4 bg-card/80 rounded-xl border border-border backdrop-blur-sm space-y-4">
+            <div className="space-y-4">
+              <div className="p-3 bg-card/80 rounded-lg border border-border backdrop-blur-sm space-y-3">
                 <VolumeSlider 
                   label="背景音乐" 
                   value={bgmVolume} 
@@ -150,26 +151,26 @@ export function SettingScreen({ player, onBack, onLogout }: SettingScreenProps) 
           )}
           
           {activeTab === 'display' && (
-            <div className="space-y-4">
-              <h3 className="text-sm font-medium text-muted-foreground">画质设置</h3>
-              <div className="space-y-2">
+            <div className="space-y-3">
+              <h3 className="text-xs font-medium text-muted-foreground">画质设置</h3>
+              <div className="space-y-1.5">
                 {qualityOptions.map((option) => (
                   <button
                     key={option.id}
                     onClick={() => setQuality(option.id)}
-                    className={`w-full flex items-center justify-between p-4 rounded-xl border transition-all ${
+                    className={`w-full flex items-center justify-between p-3 rounded-lg border transition-all ${
                       quality === option.id 
                         ? 'bg-gold-primary/10 border-gold-primary' 
                         : 'bg-card/80 border-border hover:border-gold-primary/50'
                     }`}
                   >
                     <div>
-                      <p className="font-medium">{option.label}</p>
-                      <p className="text-xs text-muted-foreground">{option.desc}</p>
+                      <p className="text-sm font-medium">{option.label}</p>
+                      <p className="text-[10px] text-muted-foreground">{option.desc}</p>
                     </div>
                     {quality === option.id && (
-                      <div className="w-6 h-6 rounded-full bg-gold-primary flex items-center justify-center">
-                        <Check className="w-4 h-4 text-primary-foreground" />
+                      <div className="w-5 h-5 rounded-full bg-gold-primary flex items-center justify-center">
+                        <Check className="w-3 h-3 text-primary-foreground" />
                       </div>
                     )}
                   </button>
@@ -179,31 +180,31 @@ export function SettingScreen({ player, onBack, onLogout }: SettingScreenProps) 
           )}
           
           {activeTab === 'other' && (
-            <div className="space-y-4">
+            <div className="space-y-2">
               {/* 语言设置 */}
               <button
                 onClick={() => setShowLanguageSelect(true)}
-                className="w-full flex items-center justify-between p-4 bg-card/80 rounded-xl border border-border"
+                className="w-full flex items-center justify-between p-3 bg-card/80 rounded-lg border border-border"
               >
-                <div className="flex items-center gap-3">
-                  <Globe className="w-5 h-5 text-muted-foreground" />
-                  <span>语言</span>
-                </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-muted-foreground">
+                  <Globe className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm">语言</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs text-muted-foreground">
                     {languages.find(l => l.id === language)?.label}
                   </span>
-                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                  <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
                 </div>
               </button>
               
               {/* VIP显示 */}
-              <div className="flex items-center justify-between p-4 bg-card/80 rounded-xl border border-border">
-                <span>显示VIP标识</span>
-                <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between p-3 bg-card/80 rounded-lg border border-border">
+                <span className="text-sm">显示VIP标识</span>
+                <div className="flex items-center gap-1">
                   <button
                     onClick={() => setShowVip(true)}
-                    className={`px-3 py-1.5 rounded-md text-sm ${
+                    className={`px-2 py-1 rounded-md text-xs ${
                       showVip 
                         ? 'bg-gold-primary text-primary-foreground' 
                         : 'bg-muted text-muted-foreground'
@@ -213,7 +214,7 @@ export function SettingScreen({ player, onBack, onLogout }: SettingScreenProps) 
                   </button>
                   <button
                     onClick={() => setShowVip(false)}
-                    className={`px-3 py-1.5 rounded-md text-sm ${
+                    className={`px-2 py-1 rounded-md text-xs ${
                       !showVip 
                         ? 'bg-gold-primary text-primary-foreground' 
                         : 'bg-muted text-muted-foreground'
@@ -225,9 +226,9 @@ export function SettingScreen({ player, onBack, onLogout }: SettingScreenProps) 
               </div>
               
               {/* 版本信息 */}
-              <div className="p-4 bg-card/80 rounded-xl border border-border text-center">
-                <p className="text-sm text-muted-foreground">游戏版本</p>
-                <p className="text-lg font-medium">v1.2.58</p>
+              <div className="p-3 bg-card/80 rounded-lg border border-border text-center">
+                <p className="text-[10px] text-muted-foreground">游戏版本</p>
+                <p className="text-sm font-medium">v1.2.58</p>
               </div>
             </div>
           )}
@@ -294,13 +295,13 @@ function SettingButton({ icon: Icon, label, onClick }: SettingButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center justify-between p-4 bg-card/80 rounded-xl border border-border hover:border-gold-primary/50 transition-colors"
+      className="w-full flex items-center justify-between p-2.5 bg-card/80 rounded-lg border border-border hover:border-gold-primary/50 transition-colors"
     >
-      <div className="flex items-center gap-3">
-        <Icon className="w-5 h-5 text-muted-foreground" />
-        <span>{label}</span>
+      <div className="flex items-center gap-2">
+        <Icon className="w-4 h-4 text-muted-foreground" />
+        <span className="text-sm">{label}</span>
       </div>
-      <ChevronRight className="w-4 h-4 text-muted-foreground" />
+      <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
     </button>
   )
 }

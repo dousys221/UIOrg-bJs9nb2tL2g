@@ -17,10 +17,20 @@ export function VideoPanel({ videoName = "opening_cg", onVideoEnd, onSkip }: Vid
 
   useEffect(() => {
     // 3秒后显示跳过提示
-    const timer = setTimeout(() => {
+    const hintTimer = setTimeout(() => {
       setShowSkipHint(true)
     }, 3000)
-    return () => clearTimeout(timer)
+    
+    // 8秒后自动结束视频（与进度条动画同步）
+    const endTimer = setTimeout(() => {
+      handleVideoEnd()
+    }, 8000)
+    
+    return () => {
+      clearTimeout(hintTimer)
+      clearTimeout(endTimer)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleVideoEnd = () => {

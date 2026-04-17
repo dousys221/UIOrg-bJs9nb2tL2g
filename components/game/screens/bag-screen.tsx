@@ -73,22 +73,22 @@ export function BagScreen({ player, onBack }: BagScreenProps) {
       </div>
       
       {/* 物品网格 */}
-      <div className="flex-1 px-4 overflow-y-auto">
-        <div className="grid grid-cols-5 gap-3 pb-4">
+      <div className="flex-1 px-3 overflow-y-auto">
+        <div className="grid grid-cols-5 gap-2 pb-4">
           {filteredItems.map((item) => {
             const ItemIcon = getItemIcon(item.type)
             return (
-              <div key={item.id} className="flex flex-col items-center gap-1">
+              <div key={item.id} className="flex flex-col items-center gap-0.5">
                 <ItemFrame 
                   quality={item.quality} 
                   count={item.count}
                   selected={selectedItem?.id === item.id}
                   onClick={() => setSelectedItem(item)}
                 >
-                  <ItemIcon className="w-7 h-7 text-foreground/70" />
+                  <ItemIcon className="w-5 h-5 text-foreground/70" />
                 </ItemFrame>
                 {item.level && (
-                  <span className="text-[10px] text-gold-light">+{item.level}</span>
+                  <span className="text-[9px] text-gold-light">+{item.level}</span>
                 )}
               </div>
             )
@@ -98,32 +98,32 @@ export function BagScreen({ player, onBack }: BagScreenProps) {
           {Array.from({ length: Math.max(0, 20 - filteredItems.length) }).map((_, i) => (
             <div 
               key={`empty-${i}`} 
-              className="w-[68px] h-[68px] rounded-lg border border-border/50 bg-muted/20"
+              className="w-14 h-14 rounded-md border border-border/50 bg-muted/20"
             />
           ))}
         </div>
       </div>
       
       {/* 底部操作区 */}
-      <div className="px-4 pb-6 pt-3 border-t border-border space-y-3">
+      <div className="px-3 pb-4 pt-2 border-t border-border space-y-2">
         {/* 快捷操作 */}
-        <div className="flex items-center gap-3">
-          <GameButton variant="secondary" className="flex-1">
-            <div className="flex items-center gap-2">
-              <Combine className="w-4 h-4" />
+        <div className="flex items-center gap-2">
+          <GameButton variant="secondary" size="sm" className="flex-1">
+            <div className="flex items-center gap-1.5">
+              <Combine className="w-3.5 h-3.5" />
               <span>一键合成</span>
             </div>
           </GameButton>
-          <GameButton variant="secondary" className="flex-1">
-            <div className="flex items-center gap-2">
-              <Trash2 className="w-4 h-4" />
+          <GameButton variant="secondary" size="sm" className="flex-1">
+            <div className="flex items-center gap-1.5">
+              <Trash2 className="w-3.5 h-3.5" />
               <span>分解</span>
             </div>
           </GameButton>
         </div>
         
         {/* 容量显示 */}
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
           <span>背包容量</span>
           <span>{filteredItems.length}/200</span>
         </div>

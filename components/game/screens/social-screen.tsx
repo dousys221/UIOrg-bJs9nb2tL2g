@@ -62,9 +62,9 @@ export function SocialScreen({ player, onBack }: SocialScreenProps) {
         rightContent={
           <button 
             onClick={() => setShowChat(!showChat)}
-            className={`p-2 rounded-lg ${showChat ? 'bg-gold-primary/20' : 'bg-card/80'} border border-border`}
+            className={`p-1.5 rounded-md ${showChat ? 'bg-gold-primary/20' : 'bg-card/80'} border border-border`}
           >
-            <MessageCircle className={`w-5 h-5 ${showChat ? 'text-gold-primary' : 'text-muted-foreground'}`} />
+            <MessageCircle className={`w-4 h-4 ${showChat ? 'text-gold-primary' : 'text-muted-foreground'}`} />
           </button>
         }
       />
@@ -73,8 +73,8 @@ export function SocialScreen({ player, onBack }: SocialScreenProps) {
         // 聊天界面
         <div className="flex-1 flex flex-col">
           {/* 频道切换 */}
-          <div className="px-4 pb-3">
-            <div className="flex items-center gap-2">
+          <div className="px-3 pb-2">
+            <div className="flex items-center gap-1.5">
               {chatChannels.map((channel) => (
                 <button
                   key={channel.id}

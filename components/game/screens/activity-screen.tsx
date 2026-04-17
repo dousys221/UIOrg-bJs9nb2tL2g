@@ -47,21 +47,21 @@ export function OperatingPanel({
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/30 to-background" />
 
       {/* 顶部栏 */}
-      <div className="relative z-10 flex items-center justify-between px-4 py-3">
+      <div className="relative z-10 flex items-center justify-between px-3 py-2">
         <button
           onClick={onBack}
-          className="flex items-center justify-center w-10 h-10 rounded-lg bg-card/80 border border-border"
+          className="flex items-center justify-center w-9 h-9 rounded-lg bg-card/80 border border-border"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-lg font-bold">活动中心</h1>
-        <div className="w-10" />
+        <h1 className="text-base font-bold">活动中心</h1>
+        <div className="w-9" />
       </div>
 
       {/* 左侧Tab + 右侧内容 */}
-      <div className="relative z-10 flex h-full pt-16 pb-4">
+      <div className="relative z-10 flex flex-1 overflow-hidden">
         {/* Tab列表 */}
-        <div className="w-20 shrink-0 px-2 space-y-2 overflow-y-auto">
+        <div className="w-16 shrink-0 px-1 py-2 space-y-1.5 overflow-y-auto">
           {tabs.map((tab, idx) => (
             <button
               key={tab.id}
@@ -70,23 +70,23 @@ export function OperatingPanel({
                 tab.onClick?.();
               }}
               className={cn(
-                "relative w-full py-3 text-sm font-medium rounded-lg transition-all",
+                "relative w-full py-2 text-xs font-medium rounded-md transition-all",
                 activeTab === idx
                   ? "bg-gradient-to-b from-gold-secondary to-gold-primary text-primary-foreground"
                   : "bg-card/50 text-muted-foreground hover:text-foreground border border-border"
               )}
             >
               {tab.label}
-              {tab.redDot && <RedDot className="absolute -top-1 -right-1" />}
+              {tab.redDot && <RedDot className="absolute -top-0.5 -right-0.5 w-2 h-2" />}
             </button>
           ))}
         </div>
 
         {/* 内容区 */}
-        <div className="flex-1 px-4 overflow-y-auto">
+        <div className="flex-1 px-3 py-2 overflow-y-auto">
           <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
-            <Gift className="w-16 h-16 mb-4 opacity-30" />
-            <p>选择左侧活动查看详情</p>
+            <Gift className="w-12 h-12 mb-3 opacity-30" />
+            <p className="text-sm">选择左侧活动查看详情</p>
           </div>
         </div>
       </div>

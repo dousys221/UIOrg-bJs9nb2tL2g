@@ -117,47 +117,47 @@ export function ShopScreen({ player, onBack }: ShopScreenProps) {
       </div>
       
       {/* 商品列表 */}
-      <div className="flex-1 px-4 overflow-y-auto">
-        <div className="grid grid-cols-2 gap-3 pb-4">
+      <div className="flex-1 px-3 overflow-y-auto">
+        <div className="grid grid-cols-2 gap-2 pb-4">
           {mockShopItems.map((shopItem) => {
             const CurrencyIcon = getCurrencyIcon(shopItem.currency)
             return (
               <button
                 key={shopItem.id}
                 onClick={() => setSelectedItem(shopItem)}
-                className="relative bg-card rounded-xl border border-border overflow-hidden hover:border-gold-primary/50 transition-colors"
+                className="relative bg-card rounded-lg border border-border overflow-hidden hover:border-gold-primary/50 transition-colors"
               >
                 {/* 折扣标签 */}
                 {shopItem.discount && (
-                  <div className="absolute top-2 left-2 flex items-center gap-1 px-2 py-0.5 bg-destructive rounded text-[10px] font-bold text-white">
-                    <Tag className="w-3 h-3" />
-                    {shopItem.discount}% OFF
+                  <div className="absolute top-1.5 left-1.5 flex items-center gap-0.5 px-1.5 py-0.5 bg-destructive rounded text-[9px] font-bold text-white">
+                    <Tag className="w-2.5 h-2.5" />
+                    {shopItem.discount}%
                   </div>
                 )}
                 
                 {/* 商品图片区 */}
-                <div className="p-4 bg-gradient-to-b from-muted/30 to-transparent">
-                  <div className="mx-auto w-16 h-16 rounded-lg bg-muted/50 flex items-center justify-center">
+                <div className="p-3 bg-gradient-to-b from-muted/30 to-transparent">
+                  <div className="mx-auto w-12 h-12 rounded-md bg-muted/50 flex items-center justify-center">
                     {shopItem.item.type === 'gift' ? (
-                      <Package className="w-8 h-8 text-gold-primary/70" />
+                      <Package className="w-6 h-6 text-gold-primary/70" />
                     ) : (
-                      <Star className="w-8 h-8 text-blue-tech/70" />
+                      <Star className="w-6 h-6 text-blue-tech/70" />
                     )}
                   </div>
                 </div>
                 
                 {/* 商品信息 */}
-                <div className="px-3 pb-3">
-                  <p className="text-sm font-medium truncate">{shopItem.item.name}</p>
-                  <div className="flex items-center justify-between mt-2">
-                    <div className="flex items-center gap-1">
-                      <CurrencyIcon className={`w-4 h-4 ${getCurrencyColor(shopItem.currency)}`} />
-                      <span className={`text-sm font-bold ${getCurrencyColor(shopItem.currency)}`}>
+                <div className="px-2 pb-2">
+                  <p className="text-xs font-medium truncate">{shopItem.item.name}</p>
+                  <div className="flex items-center justify-between mt-1">
+                    <div className="flex items-center gap-0.5">
+                      <CurrencyIcon className={`w-3 h-3 ${getCurrencyColor(shopItem.currency)}`} />
+                      <span className={`text-xs font-bold ${getCurrencyColor(shopItem.currency)}`}>
                         {formatPrice(shopItem.price, shopItem.currency)}
                       </span>
                     </div>
                     {shopItem.discount && (
-                      <span className="text-xs text-muted-foreground line-through">
+                      <span className="text-[9px] text-muted-foreground line-through">
                         {formatPrice(shopItem.price * 2, shopItem.currency)}
                       </span>
                     )}
